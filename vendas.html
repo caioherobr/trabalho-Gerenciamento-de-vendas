@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Vendas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Vendas</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Valor Total</th>
+                <th>Data da Venda</th>
+                <th>Quantidade de Produtos</th>
+                <th>Vendedor</th>
+                <th>Desconto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venda in vendas %}
+            <tr>
+                <td>{{ venda.id_vendas }}</td>
+                <td>{{ venda.valor_total }}</td>
+                <td>{{ venda.data_venda }}</td>
+                <td>{{ venda.quantidade_de_produtos }}</td>
+                <td>{{ venda.vendedor }}</td>
+                <td>{{ venda.desconto }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
