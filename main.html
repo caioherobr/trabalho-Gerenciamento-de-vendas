@@ -1,190 +1,47 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empresa de Gerenciamento - Vendedores & Promotores</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-        }
-
-        .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://source.unsplash.com/1600x900/?business');
-            background-size: cover;
-            color: white;
-            padding: 100px 0;
-            text-align: center;
-        }
-
-        .hero-section h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .hero-section p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-        }
-
-        .features-section {
-            padding: 50px 0;
-        }
-
-        .features-section h2 {
-            margin-bottom: 40px;
-            font-weight: 700;
-            text-align: center;
-        }
-
-        .cta-section {
-            background-color: #1e1e2f;
-            color: white;
-            padding: 50px 0;
-            text-align: center;
-        }
-
-        .cta-section h2 {
-            font-size: 2rem;
-        }
-
-        .footer {
-            background-color: #343a40;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        .footer a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <title>Main page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body>
-
-    <!-- Seção Hero -->
-    <header class="hero-section">
+    <header class="p-3 text-bg-dark">
         <div class="container">
-            <h1>Gerenciamento Inteligente de Vendas e Promoção</h1>
-            <p>Transforme sua equipe de vendas com soluções inovadoras para vendedores e promotores.</p>
-            <a href="#servicos" class="btn btn-primary btn-lg">Nossos Serviços</a>
-            <a href="#contato" class="btn btn-outline-light btn-lg">Entre em Contato</a>
-        </div>
-    </header>
-
-    <!-- Seção de Recursos -->
-    <section class="features-section">
-        <div class="container">
-            <h2>Por Que Escolher Nossa Empresa?</h2>
-            <div class="row g-4">
-                <div class="col-md-4 text-center">
-                    <i class="bi bi-people-fill display-4 text-primary"></i>
-                    <h4 class="mt-3">Equipe Qualificada</h4>
-                    <p>Nossos vendedores e promotores são treinados para maximizar resultados.</p>
-                </div>
-                <div class="col-md-4 text-center">
-                    <i class="bi bi-bar-chart-line-fill display-4 text-success"></i>
-                    <h4 class="mt-3">Aumento de Vendas</h4>
-                    <p>Estratégias personalizadas para impulsionar suas vendas em diversos segmentos.</p>
-                </div>
-                <div class="col-md-4 text-center">
-                    <i class="bi bi-phone-fill display-4 text-warning"></i>
-                    <h4 class="mt-3">Suporte 24/7</h4>
-                    <p>Assistência contínua para garantir o sucesso de suas campanhas.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção de Serviços -->
-    <section id="servicos" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-5">Nossos Serviços</h2>
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Gerenciamento de Equipes</h5>
-                            <p class="card-text">Organizamos e gerenciamos sua equipe de vendas e promotores para garantir eficiência e resultados.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Treinamento Personalizado</h5>
-                            <p class="card-text">Capacitamos sua equipe com treinamentos direcionados para o setor de atuação.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Análise de Dados</h5>
-                            <p class="card-text">Oferecemos relatórios detalhados para monitorar o desempenho e otimizar suas campanhas.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Consultoria Estratégica</h5>
-                            <p class="card-text">Nossos especialistas ajudam a definir estratégias para alcançar suas metas de vendas.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção CTA -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>Pronto para Transformar Suas Vendas?</h2>
-            <p>Entre em contato e descubra como podemos ajudar sua empresa a crescer.</p>
-            <a href="#contato" class="btn btn-lg btn-light">Fale Conosco</a>
-        </div>
-    </section>
-
-    <!-- Seção de Contato -->
-    <section id="contato" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-4">Fale Conosco</h2>
-            <form>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control" placeholder="Seu Nome" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <input type="email" class="form-control" placeholder="Seu Email" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <textarea class="form-control" rows="4" placeholder="Sua Mensagem"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+              <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+            </a>
+    
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+              <li><a href="main.html" class="nav-link px-2 text-secondary">Home</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+            </ul>
+    
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+              <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
             </form>
+    
+            <div class="text-end">
+              <button type="button" class="btn btn-outline-light me-2">Login</button>
+              <button type="button" class="btn btn-warning">Sign-up</button>
+            </div>
+          </div>
         </div>
-    </section>
+      </header>
 
-    <!-- Rodapé -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 Gerenciamento Vendas e Promoção. Todos os direitos reservados.</p>
-            <p><a href="#politica-privacidade">Política de Privacidade</a> | <a href="#termos-uso">Termos de Uso</a></p>
-        </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</footer>
+
+
 </body>
-
 </html>
