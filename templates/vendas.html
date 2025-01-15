@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Vendas</title>
+</head>
+<body>
+    <h1>Relatório de Vendas</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID da Venda</th>
+                <th>Data</th>
+                <th>Valor</th>
+                <th>Vendedor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if vendas %}
+                {% for venda in vendas %}
+                <tr>
+                    <td>{{ venda.id }}</td>
+                    <td>{{ venda.data }}</td>
+                    <td>{{ venda.valor }}</td>
+                    <td>{{ venda.vendedor }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4">Nenhuma venda encontrada.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</body>
+</html>
