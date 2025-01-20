@@ -74,10 +74,10 @@
                     {% if vendas %}
                         {% for venda in vendas %}
                         <tr>
-                            <td>{{ venda.id }}</td>
+                            <td>{{ venda.vendedor }}</td>
                             <td>{{ venda.data }}</td>
                             <td>{{ venda.valor }}</td>
-                            <td>{{ venda.vendedor }}</td>
+                            <td>{{ venda.id }}</td>
                         </tr>
                         {% endfor %}
                     {% else %}

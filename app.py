@@ -68,21 +68,21 @@ def vendas():
         if user_role == 'vendedor':
             # Mostra todas as vendas relacionadas ao vendedor
             query = """
-                SELECT vendas.id, vendas.data, vendas.valor, 
-                       usuarios.username AS vendedor 
+                SELECT usuarios.username AS vendedor, vendas.id, vendas.data, vendas.valor
                 FROM vendas 
                 INNER JOIN usuarios ON vendas.vendedor_id = usuarios.id
                 WHERE vendedor_id = %s
+                ORDER BY usuarios.username ASC
             """
             cursor.execute(query, (session['user_id'],))
         
         elif user_role == 'gerente':
             # Mostra todas as vendas de todos os vendedores
             query = """
-                SELECT vendas.id, vendas.data, vendas.valor, 
-                       usuarios.username AS vendedor 
+                SELECT usuarios.username AS vendedor, vendas.id, vendas.data, vendas.valor
                 FROM vendas 
                 INNER JOIN usuarios ON vendas.vendedor_id = usuarios.id
+                ORDER BY usuarios.username ASC
             """
             cursor.execute(query)
         
