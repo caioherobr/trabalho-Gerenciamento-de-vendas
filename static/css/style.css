@@ -12,8 +12,11 @@ header {
     background-color: #f8f9fa;
 }
 
-footer {
+.footer {
     text-align: center;
     padding: 10px;
-    background-color: #f8f9fa;
+    background-color: #0b79e7;
+    color: white;
+    
+    
 }
