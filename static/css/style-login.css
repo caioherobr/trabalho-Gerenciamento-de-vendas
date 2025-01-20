@@ -47,15 +47,3 @@
 .login-container button:hover {
     background-color: #0056b3;
 }
-.main-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-image: url('/static/images/foto4.webp'); /* Substitua pelo caminho da sua imagem */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    margin: 0;
-}
