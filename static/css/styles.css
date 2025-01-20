@@ -112,4 +112,64 @@ header {
     margin-top: 30px;
     margin-bottom: 10px;
 }
+/* Estilos específicos para a página Relatório de Vendas */
+.relatorio-vendas body {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.relatorio-vendas .container {
+    animation: fadeIn 0.5s ease-in;
+}
+
+.relatorio-vendas .table-container {
+    background: #252525;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.relatorio-vendas table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.relatorio-vendas th {
+    background-color: #333;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+.relatorio-vendas td, .relatorio-vendas th {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #404040;
+}
+
+.relatorio-vendas tr:last-child td {
+    border-bottom: none;
+}
+
+.relatorio-vendas tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.relatorio-vendas tbody tr:hover {
+    background-color: #2d2d2d;
+}
+
+.relatorio-vendas .empty-message {
+    color: #888888;
+    font-style: italic;
+}
+
+/* Animação de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
