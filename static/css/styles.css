@@ -1,6 +1,4 @@
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
 body {
     font-family: Arial, sans-serif;
 }
@@ -242,11 +240,7 @@ header {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
 @import url('header.css');
 @import url('carousel.css');
 @import url('footer.css');
@@ -254,11 +248,3 @@ header {
 @import url('login.css');
 @import url('about.css');
 @import url('relatorio-vendas.css');
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-
