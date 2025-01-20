@@ -13,13 +13,21 @@ header {
 }
 
 .footer {
-        text-align: center;
-        padding: 20px; /* Aumenta o espaçamento interno */
-        background-color: #021a33; /* Cor de fundo mais escura */
+    .footer-custom {
+        background: linear-gradient(to right, #021a33, #043a6b); /* Gradiente para destacar */
         color: white;
-        font-weight: bold; /* Deixa o texto mais destacado */
-        border-top: 5px solid #ffcc00; /* Adiciona uma borda de cor vibrante */
-        box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.5); /* Adiciona sombra no topo */
+        text-align: center;
+        padding: 30px 0;
+        font-weight: bold;
+        border-top: 5px solid #ffcc00; /* Borda superior chamativa */
+        box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.5); /* Sombra no topo */
+    }
+    
+    .footer-custom p {
+        margin: 0;
+        font-size: 18px;
+    }
+    
     }
  /* Fundo estático aplicado ao container principal */
 .main-container {
