@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #343a40;
+}
+
+.carousel-caption p {
+    font-size: 1rem;
+    color: #000000;
+    background-color: #f8f9fa;
+}
+
+.footer {
+        text-align: center;
+        padding: 20px; /* Aumenta o espaçamento interno */
+        background-color: #021a33; /* Cor de fundo mais escura */
+        color: white;
+        font-weight: bold; /* Deixa o texto mais destacado */
+        border-top: 5px solid #ffcc00; /* Adiciona uma borda de cor vibrante */
+        box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.5); /* Adiciona sombra no topo */
+    }
+    
+
