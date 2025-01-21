@@ -8,6 +8,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style-vendas.css') }}">
 </head>
 <body class="relatorio-vendas min-h-screen p-8">
+
+    <!-- Navbar -->
+    <nav class="bg-black p-4 mb-8">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-white font-semibold text-xl">Relatórios</a>
+            <div class="flex space-x-4">
+                <a href="#vendas" class="text-white hover:text-gray-300">Todas as Vendas</a>
+                <a href="#pesquisa-vendedores" class="text-white hover:text-gray-300">Rank de Vendedores</a>
+                <a href="#pesquisa-gerentes" class="text-white hover:text-gray-300">Total de vendas</a>
+                <a href="/logout" class="text-white border-2 border-white hover:bg-white hover:text-black px-4 py-2 rounded-lg">Logout</a>
+
+            </div>
+        </div>
+    </nav>
+
     <div class="relatorio-vendas container mx-auto max-w-6xl">
         <h1 class="text-4xl font-bold mb-8 text-center text-white">Relatório de Vendas</h1>
         
@@ -40,5 +55,6 @@
             </table>
         </div>
     </div>
+
 </body>
 </html>
