@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório de Vendas</title>
+    <title>Rank de Vendedores</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style-vendas.css') }}">
 </head>
@@ -12,11 +12,11 @@
     <!-- Navbar -->
     <nav class="bg-black p-4 mb-8">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-white font-semibold text-xl">Relatórios</a>
+            <a href="/" class="text-white font-semibold text-xl">Inicio</a>
             <div class="flex space-x-4">
-                <a href="#vendas" class="text-white hover:text-gray-300">Todas as Vendas</a>
-                <a href="#pesquisa-vendedores" class="text-white hover:text-gray-300">Rank de Vendedores</a>
-                <a href="#pesquisa-gerentes" class="text-white hover:text-gray-300">Total de vendas</a>
+                <a href="/vendas" class="text-white hover:text-gray-300">Todas as Vendas</a>
+                <a href="/rank" class="text-white hover:text-gray-300">Rank de Vendedores</a>
+                <a href="/total" class="text-white hover:text-gray-300">Total de vendas</a>
                 <a href="/logout" class="text-white border-2 border-white hover:bg-white hover:text-black px-4 py-2 rounded-lg">Logout</a>
 
             </div>
@@ -31,30 +31,26 @@
                 <thead>
                     <tr>
                         <th class="rounded-tl-lg">Vendedor</th>
-                        <th>Data</th>
+                        <th>Quantidade de vendas</th>
                         <th>Valor</th>
-                        <th class="rounded-tr-lg">Id da vendas</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
-                    {% if vendas %}
-                        {% for venda in vendas %}
-                        <tr>
-                            <td>{{ venda.vendedor }}</td>
-                            <td>{{ venda.data }}</td>
-                            <td>{{ venda.valor }}</td>
-                            <td>{{ venda.id }}</td>
-                        </tr>
-                        {% endfor %}
-                    {% else %}
-                        <tr>
-                            <td colspan="4" class="text-center empty-message">Nenhuma venda encontrada.</td>
-                        </tr>
-                    {% endif %}
+                    {% for item in rank %}
+                    <tr>
+                        <td>{{ item.vendedor }}</td>
+                        <td>{{ item.total_vendas }}</td>
+                        <td>{{ item.valor_total }}</td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
+               
         </div>
     </div>
 
 </body>
 </html>
+
+

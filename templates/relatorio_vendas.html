@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Vendas</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-vendas.css') }}">
+</head>
+<body class="relatorio-vendas min-h-screen p-8">
+
+    <!-- Navbar -->
+    <nav class="bg-black p-4 mb-8">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-white font-semibold text-xl">Inicio</a>
+            <div class="flex space-x-4">
+                <a href="/vendas" class="text-white hover:text-gray-300">Todas as Vendas</a>
+                <a href="/rank" class="text-white hover:text-gray-300">Rank de Vendedores</a>
+                <a href="/total" class="text-white hover:text-gray-300">Total de vendas</a>
+                <a href="/logout" class="text-white border-2 border-white hover:bg-white hover:text-black px-4 py-2 rounded-lg">Logout</a>
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="relatorio-vendas container mx-auto max-w-6xl">
+        <h1 class="text-4xl font-bold mb-8 text-center text-white">Relatório de Vendas</h1>
+        
+        <div class="table-container p-6">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="rounded-tl-lg">Vendedor</th>
+                        <th>Data</th>
+                        <th>Valor</th>
+                        <th class="rounded-tr-lg">Id da vendas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if vendas %}
+                        {% for venda in vendas %}
+                        <tr>
+                            <td>{{ venda.vendedor }}</td>
+                            <td>{{ venda.data }}</td>
+                            <td>{{ venda.valor }}</td>
+                            <td>{{ venda.id }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center empty-message">Nenhuma venda encontrada.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
