@@ -1,4 +1,5 @@
 # trabalho Gerenciamento de vendas
+ URGENTE PROTEGER ROTAS (/RH,/RANK,/VENDAS)
  Ajustes - 
 
 Index:
