@@ -3,9 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-rh.css') }}">
+    <title>Cadastro de Usuário</title>
+    
 </head>
 <body>
+    <h2>Cadastro de Usuário</h2>
+    <form action="/cadastrar" method="post">
+        <label for="username">Nome de Usuário:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Cadastrar Vendedor</button>
+        <button type="submit">Cadastrar Gerente</button>
+        <button type="submit">Alterar senha do Usuário</button>
+        
+        <button type="submit">Excluir Usuário</button>
+    </form>
+
     
 </body>
 </html>

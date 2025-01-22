@@ -10,16 +10,11 @@ enxugar elementos desnecessários
 
 inserir redes sociais, ficticio porem com link para redirecionamento 
 
-editar o features para área de indicar talentos
-
-editar o princing por aprimore suas skills
 
 ideias -
 
-Area de indique um talento: Index.html
-
-no index onde ocupa o link features.
-criar novo html em forma de formulário
+Area de indique um talento: Index.html:
+criar novo html em forma de formulário pedindo sua identificaçao e as informaçoes da sua indicaçao como contato, area de atuaçao e etc
 
 Area de Aprimore suas Skills: Index.html
 
