@@ -185,20 +185,38 @@ def logout():
     session.clear()
     return redirect('/login')
 
+
 @app.route('/atualizar', methods=['POST'])
 def atualizar_senha():
-    username = request.form['data']
-    nova_senha = "nova_senha"  # Nova senha padrão
-    sql = "UPDATE usuarios SET senha = %s WHERE username = %s"
-    cursor = executar_sql(sql, (nova_senha, username))
-    if cursor and cursor.rowcount > 0:
-        return f"Senha do usuário '{username}' atualizada com sucesso!"
-    return "Usuário não encontrado ou erro ao atualizar a senha."
+    username = request.form['username']  # O campo 'username' vindo do formulário
+    nova_senha = request.form['password']  # O campo 'nova_senha' vindo do formulário
+    conn = conectar_bd()
+    cursor = conn.cursor(dictionary=True)
+
+    
+    # Atualizar a senha no banco de dados
+    sql = "UPDATE usuarios SET password = %s WHERE username = %s"
+    
+    try:
+        cursor = executar_sql(sql, (nova_senha, username))  # Ordem correta dos parâmetros!
+        
+        # Verificar se a atualização afetou alguma linha
+        if cursor.rowcount > 0:
+            # Confirma a transação se a senha foi atualizada
+            cursor.connection.commit()
+            return f"Senha do usuário '{username}' atualizada com sucesso!"
+        else:
+            return "Usuário não encontrado ou nenhum dado alterado."
+    except Exception as e:
+        return f"Erro ao tentar atualizar a senha: {str(e)}"
 
 @app.route('/consultar', methods=['POST'])
 def consultar_usuario():
-    username = request.form['data']
-    sql = "SELECT username, senha FROM usuarios WHERE username = %s"
+    username = request.form['username']
+    conn = conectar_bd()
+    cursor = conn.cursor(dictionary=True)
+
+    sql = "SELECT username, password FROM usuarios WHERE username = %s"
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     cursor.execute(sql, (username,))
@@ -210,7 +228,8 @@ def consultar_usuario():
 
 @app.route('/deletar', methods=['POST'])
 def deletar_usuario():
-    username = request.form['data']
+    username = request.form['username']
+
     sql = "DELETE FROM usuarios WHERE username = %s"
     cursor = executar_sql(sql, (username,))
     if cursor and cursor.rowcount > 0:
@@ -222,10 +241,16 @@ def adicionar_vendedor():
     username = request.form['username']
     password = request.form['password']
     role = 'vendedor'
+    conn = conectar_bd()
+    cursor = conn.cursor(dictionary=True)
+
 
     # SQL para inserir o usuário como vendedor
     sql = "INSERT INTO usuarios (username, password, role) VALUES (%s, %s, %s)"
     cursor = executar_sql(sql, (username, password, role))
+    if cursor and cursor.rowcount > 0:
+        return f"Usuário '{username}' deletado com sucesso!"
+    return "Usuário não encontrado ou erro ao deletar."
 
    
 @app.route('/addgerente', methods=['POST'])
@@ -237,15 +262,9 @@ def adicionar_gerente():
     # SQL para inserir o usuário como vendedor
     sql = "INSERT INTO usuarios (username, password, role) VALUES (%s, %s, %s)"
     cursor = executar_sql(sql, (username, password, role))
-
- 
-
-
-
-
-
-
-
+    if cursor and cursor.rowcount > 0:
+        return f"Usuário '{username}' adicionado com sucesso!"
+    return "Usuário não pode ser adicionado."
 
 if __name__ == '__main__':
     app.run(debug=True)
