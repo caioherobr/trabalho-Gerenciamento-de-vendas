@@ -190,20 +190,22 @@ def logout():
 def atualizar_senha():
     username = request.form['username']  # O campo 'username' vindo do formulário
     nova_senha = request.form['password']  # O campo 'nova_senha' vindo do formulário
-    conn = conectar_bd()
+    conn = conectar_bd()  # Função que cria a conexão
     cursor = conn.cursor(dictionary=True)
-
     
     # Atualizar a senha no banco de dados
     sql = "UPDATE usuarios SET password = %s WHERE username = %s"
     
     try:
-        cursor = executar_sql(sql, (nova_senha, username))  # Ordem correta dos parâmetros!
+        # Executar a consulta
+        cursor.execute(sql, (nova_senha, username))  # Ordem correta dos parâmetros!
         
         # Verificar se a atualização afetou alguma linha
-        if cursor.rowcount != 0:
+        print("Número de linhas afetadas:", cursor.rowcount)  # Para debug
+        
+        if cursor.rowcount > 0:
             # Confirma a transação se a senha foi atualizada
-            cursor.connection.commit()
+            conn.commit()  # Commit deve ser feito na conexão
             return f"Senha do usuário '{username}' atualizada com sucesso!"
         else:
             return "Usuário não encontrado ou nenhum dado alterado."
