@@ -30,7 +30,8 @@
             <table>
                 <thead>
                     <tr>
-                        <th class="rounded-tl-lg">Vendedor</th>
+                        <th>Rank</th>
+                        <th class="rounded-tl-lg">Vendedor</th>                        
                         <th>Quantidade de vendas</th>
                         <th>Valor</th>
                         
@@ -39,9 +40,10 @@
                 <tbody>
                     {% for item in rank %}
                     <tr>
-                        <td>{{ item.vendedor }}</td>
+                        <td>{{ item.ranking }}</td>
+                        <td>{{ item.vendedor }}</td>                                                
                         <td>{{ item.total_vendas }}</td>
-                        <td>{{ item.valor_total }}</td>
+                        <td>{{ item.valor_total }}</td>  
                     </tr>
                     {% endfor %}
                 </tbody>

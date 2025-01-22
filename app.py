@@ -91,15 +91,22 @@ def rank_vendedores():
     cursor = conn.cursor(dictionary=True)
 
     query = """
-        SELECT usuarios.username AS vendedor, COUNT(vendas.id) AS total_vendas, SUM(vendas.valor) AS valor_total
-        FROM vendas
-        INNER JOIN usuarios ON vendas.vendedor_id = usuarios.id
-        GROUP BY usuarios.username
-        ORDER BY total_vendas DESC
+        SELECT 
+         DENSE_RANK() OVER (ORDER BY SUM(vendas.valor) DESC) as ranking,
+        usuarios.username AS vendedor, 
+        COUNT(vendas.id) AS total_vendas, 
+        SUM(vendas.valor) AS valor_total 
+        FROM vendas 
+        INNER JOIN usuarios ON vendas.vendedor_id = usuarios.id 
+        GROUP BY usuarios.username 
+        ORDER BY valor_total DESC
+
+
     """
     cursor.execute(query)
     rank = cursor.fetchall()
     conn.close()
+    
     return render_template('rank_vendedores.html', rank=rank)
 
 @app.route('/total')
