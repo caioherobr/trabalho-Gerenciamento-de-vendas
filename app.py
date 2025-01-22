@@ -201,7 +201,7 @@ def atualizar_senha():
         cursor = executar_sql(sql, (nova_senha, username))  # Ordem correta dos parâmetros!
         
         # Verificar se a atualização afetou alguma linha
-        if cursor.rowcount > 0:
+        if cursor.rowcount != 0:
             # Confirma a transação se a senha foi atualizada
             cursor.connection.commit()
             return f"Senha do usuário '{username}' atualizada com sucesso!"
@@ -232,7 +232,7 @@ def deletar_usuario():
 
     sql = "DELETE FROM usuarios WHERE username = %s"
     cursor = executar_sql(sql, (username,))
-    if cursor and cursor.rowcount > 0:
+    if cursor and cursor.rowcount != 0:
         return f"Usuário '{username}' deletado com sucesso!"
     return "Usuário não encontrado ou erro ao deletar."
 
@@ -248,10 +248,9 @@ def adicionar_vendedor():
     # SQL para inserir o usuário como vendedor
     sql = "INSERT INTO usuarios (username, password, role) VALUES (%s, %s, %s)"
     cursor = executar_sql(sql, (username, password, role))
-    if cursor and cursor.rowcount > 0:
-        return f"Usuário '{username}' deletado com sucesso!"
-    return "Usuário não encontrado ou erro ao deletar."
-
+    if cursor and cursor.rowcount != 0:
+        return f"Usuário Vendedor'{username}' adicionado com sucesso!"
+    return "Usuário não pode ser adicionado."
    
 @app.route('/addgerente', methods=['POST'])
 def adicionar_gerente():
@@ -262,8 +261,8 @@ def adicionar_gerente():
     # SQL para inserir o usuário como vendedor
     sql = "INSERT INTO usuarios (username, password, role) VALUES (%s, %s, %s)"
     cursor = executar_sql(sql, (username, password, role))
-    if cursor and cursor.rowcount > 0:
-        return f"Usuário '{username}' adicionado com sucesso!"
+    if cursor and cursor.rowcount != 0:
+        return f"Usuário Gerente'{username}' adicionado com sucesso!"
     return "Usuário não pode ser adicionado."
 
 if __name__ == '__main__':
