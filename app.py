@@ -185,7 +185,7 @@ def logout():
     session.clear()
     return redirect('/login')
 
-@app.route('/atualizar_senha', methods=['POST'])
+@app.route('/atualizar', methods=['POST'])
 def atualizar_senha():
     username = request.form['data']
     nova_senha = "nova_senha"  # Nova senha padrão
