@@ -50,7 +50,7 @@ def validar():
             session['user_role'] = user['role']
     
     
-            if user['role'] == 'RH':
+            if user['role'] == 'rh':
                 return redirect('/rh')
             elif user['role'] in ['vendedor', 'gerente']:
                 return redirect('/vendas')
