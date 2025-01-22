@@ -13,6 +13,24 @@ db_config = {
     'database': 'gerenciamento'
 }
 
+
+def executar_sql(comando, parametros=None):
+    try:
+        conn = mysql.connector.connect(**db_config)
+        cursor = conn.cursor()
+        cursor.execute(comando, parametros)
+        conn.commit()
+        return cursor
+    except mysql.connector.Error as err:
+        print(f"Erro: {err}")
+        return None
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+
 def conectar_bd():
     return mysql.connector.connect(**db_config)
 
@@ -73,6 +91,8 @@ def rh():
 @app.route('/vendas')
 def todas_as_vendas():
     user_role = session.get('user_role')  # Obtém o papel do usuário
+    if not user_role:
+        return redirect(url_for('login'))
     conn = conectar_bd()
     cursor = conn.cursor(dictionary=True)
 
@@ -103,6 +123,10 @@ def todas_as_vendas():
 
 @app.route('/rank')
 def rank_vendedores():
+    user_role = session.get('user_role')
+    if not user_role:
+        return redirect(url_for('login'))
+
     conn = conectar_bd()
     cursor = conn.cursor(dictionary=True)
 
@@ -160,6 +184,68 @@ def total_vendas():
 def logout():
     session.clear()
     return redirect('/login')
+
+@app.route('/atualizar_senha', methods=['POST'])
+def atualizar_senha():
+    username = request.form['data']
+    nova_senha = "nova_senha"  # Nova senha padrão
+    sql = "UPDATE usuarios SET senha = %s WHERE username = %s"
+    cursor = executar_sql(sql, (nova_senha, username))
+    if cursor and cursor.rowcount > 0:
+        return f"Senha do usuário '{username}' atualizada com sucesso!"
+    return "Usuário não encontrado ou erro ao atualizar a senha."
+
+@app.route('/consultar', methods=['POST'])
+def consultar_usuario():
+    username = request.form['data']
+    sql = "SELECT username, senha FROM usuarios WHERE username = %s"
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    cursor.execute(sql, (username,))
+    usuario = cursor.fetchone()
+    conn.close()
+    if usuario:
+        return f"Usuário: {usuario[0]}, Senha: {usuario[1]}"
+    return "Usuário não encontrado."
+
+@app.route('/deletar', methods=['POST'])
+def deletar_usuario():
+    username = request.form['data']
+    sql = "DELETE FROM usuarios WHERE username = %s"
+    cursor = executar_sql(sql, (username,))
+    if cursor and cursor.rowcount > 0:
+        return f"Usuário '{username}' deletado com sucesso!"
+    return "Usuário não encontrado ou erro ao deletar."
+
+@app.route('/addvendedor', methods=['POST'])
+def adicionar_vendedor():
+    username = request.form['username']
+    password = request.form['password']
+    role = 'vendedor'
+
+    # SQL para inserir o usuário como vendedor
+    sql = "INSERT INTO usuarios (username, password, role) VALUES (%s, %s, %s)"
+    cursor = executar_sql(sql, (username, password, role))
+
+   
+@app.route('/addgerente', methods=['POST'])
+def adicionar_gerente():
+    username = request.form['username']
+    password = request.form['password']
+    role = 'gerente'
+
+    # SQL para inserir o usuário como vendedor
+    sql = "INSERT INTO usuarios (username, password, role) VALUES (%s, %s, %s)"
+    cursor = executar_sql(sql, (username, password, role))
+
+ 
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
