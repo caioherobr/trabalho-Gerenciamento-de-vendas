@@ -61,7 +61,13 @@ def validar():
 
 @app.route('/rh')
 def rh():
-    return render_template('rh.html')
+    user_role = session.get('user_role')  # Obtém o papel do usuário
+    conn = conectar_bd()
+    cursor = conn.cursor(dictionary=True)
+    if user_role=='rh':
+        return render_template('rh.html')
+    else:
+        return redirect('/login')
 
 
 @app.route('/vendas')
@@ -119,7 +125,7 @@ def rank_vendedores():
     
     return render_template('rank_vendedores.html', rank=rank)
 
-@app.route('/total')
+
 @app.route('/total')
 def total_vendas():
     user_role = session.get('user_role')
