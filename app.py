@@ -48,11 +48,21 @@ def validar():
         if user:
             session['user_id'] = user['id']
             session['user_role'] = user['role']
-            return redirect('/vendas')
+    
+    
+            if user['role'] == 'RH':
+                return redirect('/rh')
+            elif user['role'] in ['vendedor', 'gerente']:
+                return redirect('/vendas')
+            else:
+                return render_template('login.html', error='Papel do usuário inválido!')
         else:
             return render_template('login.html', error='Credenciais inválidas!')
-    
-    return render_template('login.html')
+
+@app.route('/rh')
+def rh():
+    return render_template('rh.html')
+
 
 @app.route('/vendas')
 def todas_as_vendas():
@@ -110,18 +120,35 @@ def rank_vendedores():
     return render_template('rank_vendedores.html', rank=rank)
 
 @app.route('/total')
+@app.route('/total')
 def total_vendas():
+    user_role = session.get('user_role')
+    if not user_role:
+        return redirect(url_for('login'))  # Redireciona para login se o papel não estiver na sessão
+
     conn = conectar_bd()
     cursor = conn.cursor(dictionary=True)
 
-    query = """
-        SELECT SUM(valor) AS total_geral, COUNT(id) AS total_vendas
-        FROM vendas
-    """
-    cursor.execute(query)
+    if user_role == 'gerente':
+        query = """
+            SELECT SUM(valor) AS total_geral, COUNT(id) AS total_vendas
+            FROM vendas
+        """
+        cursor.execute(query)
+    elif user_role == 'vendedor':
+        query = """
+            SELECT SUM(valor) AS total_geral, COUNT(id) AS total_vendas
+            FROM vendas
+            WHERE vendedor_id = %s
+        """
+        cursor.execute(query, (session['user_id'],))  # Passa o vendedor_id do usuário atual
+    else:
+        return redirect(url_for('login'))  # Redireciona para login se o papel for inválido
+
     total = cursor.fetchone()
     conn.close()
     return render_template('total_geral.html', total=total)
+
 
 @app.route('/logout')
 def logout():
