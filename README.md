@@ -1,5 +1,5 @@
 # trabalho Gerenciamento de vendas
- URGENTE PROTEGER ROTAS (/RH,/RANK,/VENDAS)
+
  Ajustes - 
 
 Index:
@@ -18,9 +18,6 @@ criar novo html em forma de formulário pedindo sua identificaçao e as informa�
 Area de Aprimore suas Skills: Index.html
 nova pagina html onde podemos disponibilizar links de cursos ou artigos relacionados a melhorar o desempenhos no setor de vendas ou desempenho profissional de forma geral
  
-
-Area de RH: RH.html
-fazer as rotas e suas interaçoes com o database no backend
 
 
 Terminal de vendas: (EXTERNO)
