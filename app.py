@@ -267,5 +267,14 @@ def adicionar_gerente():
         return f"Usuário Gerente'{username}' adicionado com sucesso!"
     return "Usuário não pode ser adicionado."
 
+@app.route("/addg")
+def addg():
+    return render_template('add_gerente.html')
+
+@app.route("/addv")
+def addv():
+    return render_template('add_vendedor.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
