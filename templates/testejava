@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carregamento Parcial com Formulário</title>
+    <style>
+        /* Apenas alguns estilos básicos para visualização */
+        #loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .content {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Botão para iniciar o carregamento -->
+    <button onclick="loadContent()">Carregar Conteúdo</button>
+
+    <!-- Área de carregamento (simulando o carregamento) -->
+    <div id="loading">
+        <p>Carregando...</p>
+    </div>
+
+    <!-- Conteúdo (Formulário) ao lado da barra de navegação -->
+    <div id="content" class="content">
+        <div class="flex-grow flex items-start justify-center p-8">
+            <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">
+                <form action="/login" method="post">
+                    <div class="mb-4">
+                        <label for="username" class="block text-white">Nome de Usuário:</label>
+                        <input type="text" id="username" name="username" class="w-full p-2 border border-gray-300 rounded mt-2" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="password" class="block text-white">Senha:</label>
+                        <input type="password" id="password" name="password" class="w-full p-2 border border-gray-300 rounded mt-2" required>
+                    </div>
+                    <button type="submit" class="w-full bg-black text-white p-2 rounded">Entrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Função para simular um carregamento parcial
+        function loadContent() {
+            // Exibe a mensagem de "Carregando"
+            document.getElementById('loading').style.display = 'block';
+            
+            // Simula um carregamento com setTimeout (por exemplo, 3 segundos)
+            setTimeout(function() {
+                // Esconde a mensagem de "Carregando"
+                document.getElementById('loading').style.display = 'none';
+                
+                // Exibe o conteúdo carregado
+                document.getElementById('content').style.display = 'block';
+            }, 3000); // Simula 3 segundos de carregamento
+        }
+    </script>
+
+</body>
+</html>

@@ -9,22 +9,17 @@
     <title>Cadastro de Usuário</title>
     <link href="/static/images/chart-pie-solid.svg" rel="icon">
 </head>
-<body class="flex flex-col">
+<body>
 
-    <!-- Conteúdo Principal -->
-    
-    <h2 class="mb-2">Gerenciamento de Usuários</h2> <!-- Removi a margem inferior do título -->
-    
-
-    <!-- Barra de Navegação Vertical (Agora com margem superior reduzida) -->
-    <nav class="bg-gray-500 w-64 p-4 flex flex-col border-r border-gray-300 mt-2"> <!-- Usei mt-2 para margens menores -->
+   <!-- Contêiner para a barra de navegação e o conteúdo -->
+<div class="flex">
+    <!-- Barra de Navegação Vertical -->
+    <nav class="bg-gray-500 w-64 p-4 flex flex-col border-r border-gray-300 mt-2">
         <!-- Logo ou Título -->
         <a href="/login" class="text-black text-2xl font-semibold mb-8">Inicio</a>
 
         <!-- Tópicos com Submenus Expansíveis -->
         <div class="flex flex-col space-y-4 mt-4">
-
-            <!-- Cadastro de Usuário -->
             <div>
                 <button class="text-white hover:text-gray-400 w-full text-left" id="menu-toggle-cadastro">
                     Cadastro de Usuário
@@ -33,7 +28,7 @@
                     </svg>
                 </button>
                 <div id="submenu-cadastro" class="hidden pl-4 space-y-2">
-                </br>
+                    </br>
                     <button onclick="window.location.href='/addg'" class="bg-black text-white font-bold py-2 px-4 rounded w-full mb-2">Cadastro de Gerente</button>
                     <button onclick="window.location.href='/addv'" class="bg-black text-white font-bold py-2 px-4 rounded w-full">Cadastro de Vendedor</button>
                 </div>
@@ -41,13 +36,67 @@
 
             <!-- Botões de Ação -->
             <div class="space-y-4 button-container">
-                <button onclick="window.location.href='/atualizar'" class="custom-button">Alterar senha</button>
-                <button onclick="window.location.href='/consultar'" class="custom-button">Visualizar Senha</button>
-                <button onclick="window.location.href='/deletar'" class="custom-button">Excluir Usuário</button>
+                <button class="custom-button" id="openFormBtn">Abrir Formulário</button>
+                <button class="custom-button" id="openAlterarSenhaBtn">Alterar Senha</button>
+                <button class="custom-button" id="openVisualizarSenhaBtn">Visualizar Senha</button>
+                <button class="custom-button" id="openExcluirUsuarioBtn">Excluir Usuário</button>
             </div>
-            
         </div>
     </nav>
+
+    <!-- Conteúdo (Formulários) ao lado da barra de navegação -->
+
+    <!-- Formulário de Login -->
+    <div id="formDiv" class="flex-grow flex items-start justify-center p-8 hidden">
+        <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">
+            <form action="/login" method="post">
+                <div class="mb-4">
+                    <label for="username" class="block text-white">Nome de Usuário:</label>
+                    <input type="text" id="username" name="username" class="w-full p-2 border border-gray-300 rounded mt-2" required>
+                </div>
+                <div class="mb-6">
+                    <label for="password" class="block text-white">Senha:</label>
+                    <input type="password" id="password" name="password" class="w-full p-2 border border-gray-300 rounded mt-2" required>
+                </div>
+                <button type="submit" class="w-full bg-black text-white p-2 rounded">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Formulário de Alterar Senha -->
+    <div id="alterarSenhaDiv" class="flex-grow flex items-start justify-center p-8 hidden">
+        <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">
+            <form action="/alterar-senha" method="post">
+                <div class="mb-4">
+                    <label for="currentPassword" class="block text-white">Senha Atual:</label>
+                    <input type="password" id="currentPassword" name="currentPassword" class="w-full p-2 border border-gray-300 rounded mt-2" required>
+                </div>
+                <div class="mb-4">
+                    <label for="newPassword" class="block text-white">Nova Senha:</label>
+                    <input type="password" id="newPassword" name="newPassword" class="w-full p-2 border border-gray-300 rounded mt-2" required>
+                </div>
+                <button type="submit" class="w-full bg-black text-white p-2 rounded">Alterar Senha</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Formulário de Visualizar Senha -->
+    <div id="visualizarSenhaDiv" class="flex-grow flex items-start justify-center p-8 hidden">
+        <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">
+            <p class="text-white">Aqui você pode visualizar sua senha.</p>
+            <button class="w-full bg-black text-white p-2 rounded">Visualizar Senha</button>
+        </div>
+    </div>
+
+    <!-- Formulário de Excluir Usuário -->
+    <div id="excluirUsuarioDiv" class="flex-grow flex items-start justify-center p-8 hidden">
+        <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">
+            <p class="text-white">Tem certeza de que deseja excluir sua conta?</p>
+            <button class="w-full bg-red-600 text-white p-2 rounded">Excluir Conta</button>
+        </div>
+    </div>
+
+</div>
 
     <!-- Rodapé -->
     <footer>
@@ -58,12 +107,50 @@
 
     <!-- Script para controlar os submenus -->
     <script>
-        // Controla o submenu "Cadastro de Usuário"
         const menuToggleCadastro = document.getElementById('menu-toggle-cadastro');
         const submenuCadastro = document.getElementById('submenu-cadastro');
 
         menuToggleCadastro.addEventListener('click', () => {
             submenuCadastro.classList.toggle('hidden');
+        });
+
+        // Script para abrir os formulários
+        const openFormBtn = document.getElementById('openFormBtn');
+        const openAlterarSenhaBtn = document.getElementById('openAlterarSenhaBtn');
+        const openVisualizarSenhaBtn = document.getElementById('openVisualizarSenhaBtn');
+        const openExcluirUsuarioBtn = document.getElementById('openExcluirUsuarioBtn');
+
+        const formDiv = document.getElementById('formDiv');
+        const alterarSenhaDiv = document.getElementById('alterarSenhaDiv');
+        const visualizarSenhaDiv = document.getElementById('visualizarSenhaDiv');
+        const excluirUsuarioDiv = document.getElementById('excluirUsuarioDiv');
+
+        openFormBtn.addEventListener('click', () => {
+            formDiv.classList.toggle('hidden');
+            alterarSenhaDiv.classList.add('hidden');
+            visualizarSenhaDiv.classList.add('hidden');
+            excluirUsuarioDiv.classList.add('hidden');
+        });
+
+        openAlterarSenhaBtn.addEventListener('click', () => {
+            alterarSenhaDiv.classList.toggle('hidden');
+            formDiv.classList.add('hidden');
+            visualizarSenhaDiv.classList.add('hidden');
+            excluirUsuarioDiv.classList.add('hidden');
+        });
+
+        openVisualizarSenhaBtn.addEventListener('click', () => {
+            visualizarSenhaDiv.classList.toggle('hidden');
+            formDiv.classList.add('hidden');
+            alterarSenhaDiv.classList.add('hidden');
+            excluirUsuarioDiv.classList.add('hidden');
+        });
+
+        openExcluirUsuarioBtn.addEventListener('click', () => {
+            excluirUsuarioDiv.classList.toggle('hidden');
+            formDiv.classList.add('hidden');
+            alterarSenhaDiv.classList.add('hidden');
+            visualizarSenhaDiv.classList.add('hidden');
         });
     </script>
 
