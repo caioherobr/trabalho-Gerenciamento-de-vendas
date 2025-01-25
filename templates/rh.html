@@ -68,14 +68,14 @@
         <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">
             <form action="/alterar-senha" method="post">
                 <div class="mb-4">
-                    <label for="currentPassword" class="block text-white">Senha Atual:</label>
-                    <input type="password" id="currentPassword" name="currentPassword" class="w-full p-2 border border-gray-300 rounded mt-2" required>
+                    <label for="username" class="block text-white">Senha Atual:</label>
+                    <input type="text" id="username" name="username" required class="w-full p-2 border border-gray-300 rounded mt-2" required>
                 </div>
                 <div class="mb-4">
                     <label for="newPassword" class="block text-white">Nova Senha:</label>
-                    <input type="password" id="newPassword" name="newPassword" class="w-full p-2 border border-gray-300 rounded mt-2" required>
+                    <input type="password" id="password" name="password" class="w-full p-2 border border-gray-300 rounded mt-2" required>
                 </div>
-                <button type="submit" class="w-full bg-black text-white p-2 rounded">Alterar Senha</button>
+                <button type="submit" formaction="/atualizar" class="w-full bg-black text-white p-2 rounded">Alterar Senha</button>
             </form>
         </div>
     </div>
@@ -156,4 +156,4 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
-</html>
+</
