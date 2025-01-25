@@ -83,13 +83,8 @@
 
         <div id="excluirUsuarioDiv" class="flex-grow flex items-start justify-center p-8 hidden">
             <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">
-                <form action="/visualizar-senha" method="post">
-                    <div class="mb-4">
-                        <label for="username" class="text-white">Usuario:</label>
-                        <input type="text" id="username" name="username" required class="w-full p-2 border border-gray-300 rounded mt-2" required>
-                    </div>
-                    <button type="submit" formaction="/Deletar" class="w-full bg-black text-white p-2 rounded">Usuario a ser deletado</button>
-                </form>
+                <p class="text-white">Tem certeza de que deseja excluir sua conta?</p>
+                <button class="w-full bg-red-600 text-white p-2 rounded">Excluir Conta</button>
             </div>
         </div>
 
