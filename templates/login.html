@@ -3,41 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login | Acesso </title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style-login.css') }}">
     <link href="/static/images/chart-pie-solid.svg" rel="icon">
     <style>
-        /* Efeito de animação no foco dos campos */
-        input:focus {
-            border: 2px solid #000000; /* Cor da borda ao focar */
-            outline: none;  /* Remove o contorno padrão */
-            transition: border 0.3s ease;  /* Suaviza a transição da borda */
+        /* Resetando margens e padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Estilo do botão de envio com animação */
-        button:hover {
+        /* Corpo da página */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container principal */
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Container do login */
+        .login-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo dos campos de input */
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            color: #333;
+            transition: border-color 0.3s ease;
+        }
+
+        /* Foco nos campos de input */
+        input:focus {
+            border-color: #000000; /* Cor de destaque ao focar */
+            outline: none;
+        }
+
+        /* Estilo do botão de envio */
+        button {
+            width: 100%;
+            padding: 12px;
             background-color: #ffffff;
-            color: rgb(255, 255, 255);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
-        /* Estilo para o spinner de carregamento */
+        /* Efeito de hover no botão */
+        button:hover {
+            background-color: #424242;
+        }
+
+        /* Estilo do spinner de carregamento */
         #loader {
             display: none;
-            border: 4px solid #000000; /* Cor de fundo do spinner */
-            border-top: 4px solid #ffffff; /* Cor do "topo" do spinner */
+            border: 4px solid #ddd;
+            border-top: 4px solid #000000;
             border-radius: 50%;
             width: 30px;
             height: 30px;
-            animation: spin 2s linear infinite;
-            margin-top: 10px;
+            animation: spin 1s linear infinite;
+            margin-top: 20px;
         }
 
-        /* Animação de rotação do spinner */
+        /* Animação do spinner */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* Media query para responsividade em telas menores */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            input, button {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -57,23 +136,9 @@
     </div>
 
     <script>
-        // Captura o evento de envio do formulário
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            // Impede o envio imediato do formulário
-            e.preventDefault();
-
-            // Exibe o spinner de carregamento
+        // Função para exibir o spinner de carregamento ao submeter o formulário
+        document.getElementById('loginForm').addEventListener('submit', function() {
             document.getElementById('loader').style.display = 'block';
-            
-            // Simula um tempo de carregamento (ex: 2 segundos)
-            setTimeout(function() {
-                // Esconde o spinner de carregamento após o "carregamento"
-                document.getElementById('loader').style.display = 'none';
-
-                // Agora o formulário é enviado corretamente
-                document.getElementById('loginForm').submit();  // Submete o formulário
-
-            }, 2000); // Tempo de espera simulado (2 segundos)
         });
     </script>
 </body>
