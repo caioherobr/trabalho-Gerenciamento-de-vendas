@@ -17,7 +17,7 @@
     
 
     <!-- Barra de Navegação Vertical (Agora com margem superior reduzida) -->
-    <nav class="bg-gray-300 w-64 p-4 flex flex-col border-r border-gray-300 mt-2"> <!-- Usei mt-2 para margens menores -->
+    <nav class="bg-gray-500 w-64 p-4 flex flex-col border-r border-gray-300 mt-2"> <!-- Usei mt-2 para margens menores -->
         <!-- Logo ou Título -->
         <a href="/login" class="text-black text-2xl font-semibold mb-8">Inicio</a>
 
@@ -40,11 +40,12 @@
             </div>
 
             <!-- Botões de Ação -->
-            <div class="space-y-4"> <!-- Aumentei o espaçamento entre os botões -->
-                <button onclick="window.location.href='/atualizar'" class="bg-black text-white py-2 px-4 rounded w-full">Alterar senha </button>
-                <button onclick="window.location.href='/consultar'" class="bg-black text-white py-2 px-4 rounded w-full">Visualizar Senha</button>
-                <button onclick="window.location.href='/deletar'" class="bg-black text-white py-2 px-4 rounded w-full">Excluir Usuário</button>
+            <div class="space-y-4 button-container">
+                <button onclick="window.location.href='/atualizar'" class="custom-button">Alterar senha</button>
+                <button onclick="window.location.href='/consultar'" class="custom-button">Visualizar Senha</button>
+                <button onclick="window.location.href='/deletar'" class="custom-button">Excluir Usuário</button>
             </div>
+            
         </div>
     </nav>
 
