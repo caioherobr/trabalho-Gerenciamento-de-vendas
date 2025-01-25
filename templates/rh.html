@@ -57,11 +57,11 @@
             <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">
                 <form action="/alterar-senha" method="post">
                     <div class="mb-4">
-                        <label for="username" class="block text-white">Senha Atual:</label>
+                        <label for="username" class="block text-white">Usuario:</label>
                         <input type="text" id="username" name="username" required class="w-full p-2 border border-gray-300 rounded mt-2" required>
                     </div>
                     <div class="mb-4">
-                        <label for="newPassword" class="block text-white">Nova Senha:</label>
+                        <label for="password" class="block text-white">Nova Senha:</label>
                         <input type="password" id="password" name="password" class="w-full p-2 border border-gray-300 rounded mt-2" required>
                     </div>
                     <button type="submit" formaction="/atualizar" class="w-full bg-black text-white p-2 rounded">Alterar Senha</button>
@@ -96,7 +96,7 @@
             <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">
                 <form action="/add-gerente" method="post">
                     <div class="mb-4">
-                        <label for="username" class="text-white">Vovo Usuario Gerente :</label>
+                        <label for="username" class="text-white">Novo Usuario Gerente :</label>
                         <input type="text" id="username" name="username" required class="w-full p-2 border border-gray-300 rounded mt-2" required>
                     </div>
                     <div class="mb-4">
@@ -131,58 +131,47 @@
     </footer>
 
     <script>
+        // Elementos dos botões
         const menuToggleCadastro = document.getElementById('menu-toggle-cadastro');
         const submenuCadastro = document.getElementById('submenu-cadastro');
-
-        menuToggleCadastro.addEventListener('click', () => {
-            submenuCadastro.classList.toggle('hidden');
-        });
-        const openaddvendedor = document.getElementById('openaddvendedorBtn');
-        const openaddgerente = document.getElementById('openaddgerenteBtn');
+    
+        const openaddgerenteBtn = document.getElementById('openaddgerenteBtn');
+        const openaddvendedorBtn = document.getElementById('openaddvendedorBtn');
         const openAlterarSenhaBtn = document.getElementById('openAlterarSenhaBtn');
         const openVisualizarSenhaBtn = document.getElementById('openVisualizarSenhaBtn');
         const openExcluirUsuarioBtn = document.getElementById('openExcluirUsuarioBtn');
-
+    
+        // Elementos das seções
         const addgerenteDiv = document.getElementById('addgerenteDiv');
         const addvendedorDiv = document.getElementById('addvendedorDiv');
         const alterarSenhaDiv = document.getElementById('alterarSenhaDiv');
         const visualizarSenhaDiv = document.getElementById('visualizarSenhaDiv');
         const excluirUsuarioDiv = document.getElementById('excluirUsuarioDiv');
-
-        
-        openaddgerenteBtn.addEventListener('click', () => {
-            addgerenteDiv.classList.toggle('hidden');
-            addvendedorDiv.classList.add('hidden');
-            alterarSenhaDiv.classList.add('hidden');
-            visualizarSenhaDiv.classList.add('hidden');
-            excluirUsuarioDiv.classList.add('hidden');
+    
+        // Lista de todas as seções
+        const sections = [addgerenteDiv, addvendedorDiv, alterarSenhaDiv, visualizarSenhaDiv, excluirUsuarioDiv];
+    
+        // Função para alternar visibilidade
+        function toggleVisibility(targetDiv) {
+            // Oculta todas as seções
+            sections.forEach(div => div.classList.add('hidden'));
+            // Exibe apenas a seção selecionada
+            targetDiv.classList.remove('hidden');
+        }
+    
+        // Evento do menu para exibir/ocultar o submenu
+        menuToggleCadastro.addEventListener('click', () => {
+            submenuCadastro.classList.toggle('hidden');
         });
-        openaddvendedorBtn.addEventListener('click', () => {
-            addvendedorDiv.classList.toggle('hidden');
-            addgerenteDiv.classList.add('hidden');
-            alterarSenhaDiv.classList.add('hidden');
-            visualizarSenhaDiv.classList.add('hidden');
-            excluirUsuarioDiv.classList.add('hidden');
-        });
-        
-        openAlterarSenhaBtn.addEventListener('click', () => {
-            alterarSenhaDiv.classList.toggle('hidden');
-            visualizarSenhaDiv.classList.add('hidden');
-            excluirUsuarioDiv.classList.add('hidden');
-        });
-
-        openVisualizarSenhaBtn.addEventListener('click', () => {
-            visualizarSenhaDiv.classList.toggle('hidden');
-            alterarSenhaDiv.classList.add('hidden');
-            excluirUsuarioDiv.classList.add('hidden');
-        });
-
-        openExcluirUsuarioBtn.addEventListener('click', () => {
-            excluirUsuarioDiv.classList.toggle('hidden');
-            alterarSenhaDiv.classList.add('hidden');
-            visualizarSenhaDiv.classList.add('hidden');
-        });
+    
+        // Eventos dos botões para alternar as seções
+        openaddgerenteBtn.addEventListener('click', () => toggleVisibility(addgerenteDiv));
+        openaddvendedorBtn.addEventListener('click', () => toggleVisibility(addvendedorDiv));
+        openAlterarSenhaBtn.addEventListener('click', () => toggleVisibility(alterarSenhaDiv));
+        openVisualizarSenhaBtn.addEventListener('click', () => toggleVisibility(visualizarSenhaDiv));
+        openExcluirUsuarioBtn.addEventListener('click', () => toggleVisibility(excluirUsuarioDiv));
     </script>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
