@@ -1,9 +1,11 @@
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-image: url('/static/images/grey.png;')
 }
 
 form {
@@ -38,16 +40,17 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* Rodapé */
-.footer-bottom {
+
     
-    margin-top: auto;
+/* Rodapé */
+footer {
+    margin-top: auto; /* Faz com que o rodapé fique "empurrado" para o fim da tela */
     text-align: center;
     padding: 20px 0;
     background-color: #080808; /* Ajuste a cor de fundo conforme necessário */
     color: white;
+    width: 100%;  /* Garante que o rodapé ocupe toda a largura da tela */
 }
-
 /* Responsividade */
 @media (max-width: 768px) {
     .footer-bottom {

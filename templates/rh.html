@@ -9,47 +9,44 @@
     <title>Cadastro de Usuário</title>
     <link href="/static/images/chart-pie-solid.svg" rel="icon">
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col">
 
-    <!-- Navbar -->
-    <nav class="bg-black p-4 mb-8">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="/" class="text-white font-semibold text-xl">Inicio</a>
-            <div class="flex space-x-4">                
-                <a href="/logout" class="text-white border-2 border-white hover:bg-white hover:text-black px-4 py-2 rounded-lg">Logout</a>
+    <!-- Conteúdo Principal -->
+    
+    <h2 class="mb-2">Gerenciamento de Usuários</h2> <!-- Removi a margem inferior do título -->
+    
+
+    <!-- Barra de Navegação Vertical (Agora com margem superior reduzida) -->
+    <nav class="bg-gray-300 w-64 p-4 flex flex-col border-r border-gray-300 mt-2"> <!-- Usei mt-2 para margens menores -->
+        <!-- Logo ou Título -->
+        <a href="/login" class="text-black text-2xl font-semibold mb-8">Inicio</a>
+
+        <!-- Tópicos com Submenus Expansíveis -->
+        <div class="flex flex-col space-y-4 mt-4">
+
+            <!-- Cadastro de Usuário -->
+            <div>
+                <button class="text-white hover:text-gray-400 w-full text-left" id="menu-toggle-cadastro">
+                    Cadastro de Usuário
+                    <svg class="w-4 h-4 inline-block ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div id="submenu-cadastro" class="hidden pl-4 space-y-2">
+                </br>
+                    <button onclick="window.location.href='/addg'" class="bg-black text-white font-bold py-2 px-4 rounded w-full mb-2">Cadastro de Gerente</button>
+                    <button onclick="window.location.href='/addv'" class="bg-black text-white font-bold py-2 px-4 rounded w-full">Cadastro de Vendedor</button>
+                </div>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="space-y-4"> <!-- Aumentei o espaçamento entre os botões -->
+                <button onclick="window.location.href='/atualizar'" class="bg-black text-white py-2 px-4 rounded w-full">Alterar senha </button>
+                <button onclick="window.location.href='/consultar'" class="bg-black text-white py-2 px-4 rounded w-full">Visualizar Senha</button>
+                <button onclick="window.location.href='/deletar'" class="bg-black text-white py-2 px-4 rounded w-full">Excluir Usuário</button>
             </div>
         </div>
     </nav>
-
-    <h2>Gerenciamento de Usuários</h2>
-    <div class="flex flex-col space-y-4 mb-4 w-64">
-        <button 
-            type="button" 
-            onclick="window.location.href='/addg'" 
-            class="bg-black text-white font-bold py-2 px-4 rounded aling-center"
-        >
-            Cadastro de Gerente
-        </button>
-        <button 
-            type="button" 
-            onclick="window.location.href='/addv'" 
-            class="bg-black text-white font-bold py-2 px-4 rounded aling-center"
-        >
-            Cadastro de Vendedor
-        </button>
-    </div>
-    
-    <form action="/cadastrar" method="post">
-        <label for="username">Nome de Usuário:</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="password">Senha:</label>
-        <input type="password" id="password" name="password" required>
-
-        <button type="submit" formaction="/atualizar">Alterar senha do Usuário</button>
-        <button type="submit" formaction="/consultar">Visualizar Senha</button>       
-        <button type="submit" formaction="/deletar">Excluir Usuário</button>
-    </form>
 
     <!-- Rodapé -->
     <footer>
@@ -57,6 +54,17 @@
             <p>&copy; 2025 Empresa. Todos os direitos reservados.</p>
         </div>
     </footer>
+
+    <!-- Script para controlar os submenus -->
+    <script>
+        // Controla o submenu "Cadastro de Usuário"
+        const menuToggleCadastro = document.getElementById('menu-toggle-cadastro');
+        const submenuCadastro = document.getElementById('submenu-cadastro');
+
+        menuToggleCadastro.addEventListener('click', () => {
+            submenuCadastro.classList.toggle('hidden');
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
