@@ -211,22 +211,44 @@ def atualizar_senha():
             return "Usuário não encontrado ou nenhum dado alterado."
     except Exception as e:
         return f"Erro ao tentar atualizar a senha: {str(e)}"
-
+    
 @app.route('/consultar', methods=['POST'])
 def consultar_usuario():
-    username = request.form['username']
-    conn = conectar_bd()
-    cursor = conn.cursor(dictionary=True)
+    userInput = request.form.get('userInput')  # Corrigido para 'userInput'
 
-    sql = "SELECT username, password FROM usuarios WHERE username = %s"
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    cursor.execute(sql, (username,))
-    usuario = cursor.fetchone()
-    conn.close()
-    if usuario:
-        return f"Usuário: {usuario[0]}, Senha: {usuario[1]}"
-    return "Usuário não encontrado."
+    # Verifica se o username foi enviado
+    if not userInput:
+        return jsonify({"erro": "O campo username é obrigatório."}), 400
+
+    try:
+        # Conectar ao banco de dados
+        conn = conectar_bd()
+        cursor = conn.cursor(dictionary=True)
+
+        # Consulta SQL
+        sql = "SELECT username, password, role FROM usuarios WHERE username = %s"
+        cursor.execute(sql, (userInput,))  # Usamos 'userInput' aqui
+        usuario = cursor.fetchone()
+
+        # Fechar conexão
+        cursor.close()
+        conn.close()
+
+        # Verificar se o usuário foi encontrado
+        if usuario:
+            return jsonify({
+                "username": usuario["username"],
+                "password": usuario["password"],
+                "role": usuario["role"]
+            })
+
+        # Usuário não encontrado
+        return jsonify({"erro": "Usuário não encontrado."}), 404
+
+    except Exception as e:
+        return jsonify({"erro": f"Erro ao consultar o banco de dados: {str(e)}"}), 500
+
+
 
 @app.route('/deletar', methods=['POST'])
 def deletar_usuario():

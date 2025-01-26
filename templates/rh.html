@@ -77,15 +77,56 @@
 
         <div id="visualizarSenhaDiv" class="flex-grow flex items-start justify-center p-8 hidden">
             <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">
-                <form action="/visualizar-senha" method="post">
+                <form id="consultaForm">
                     <div class="mb-4">
-                        <label for="username" class="text-white">Usuario a Consultar:</label>
-                        <input type="text" id="username" name="username" required class="w-full p-2 border border-gray-300 rounded mt-2" required>
+                        <label for="userInput" class="text-white">Usuário a Consultar:</label>
+                        <input type="text" id="userInput" name="userInput" required class="w-full p-2 border border-gray-300 rounded mt-2">
                     </div>
-                    <button type="submit" formaction="/consultar" class="w-full bg-black text-white p-2 rounded">Visualizar Senha</button>
+                    <button type="submit" class="w-full bg-black text-white p-2 rounded">Visualizar Senha</button>
                 </form>
             </div>
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Inclui a biblioteca jQuery -->
+
+        <script>
+            $(document).ready(function () {
+                // Este código só será executado quando a página for totalmente carregada
+            
+                // Submeter o formulário via AJAX
+                $('#consultaForm').on('submit', function (event) {
+                    event.preventDefault(); // Impede o comportamento padrão do formulário de recarregar a página ao ser enviado
+            
+                    // Obtém o valor do campo de entrada 'userInput' (o que o usuário digitou)
+                    const userInput = $('#userInput').val();  // Mudamos para 'userInput'
+            
+                    // Solicitação AJAX para a rota '/consultar' no servidor Flask
+                    $.ajax({
+                        url: '/consultar', // A URL da rota Flask onde os dados serão enviados
+                        type: 'POST', // Método HTTP, que neste caso é POST (enviando dados)
+                        data: { userInput: userInput },  // Envia o valor de 'userInput' ao backend
+                        success: function (response) {
+                            // Função chamada quando a requisição for bem-sucedida
+            
+                            // Exibe o resultado da consulta (os dados retornados do servidor)
+                            alert(`Resultado da consulta:\n\nNome: ${response.username}\nSenha: ${response.password}\nCargo: ${response.role}`);
+                            // O 'response' contém o JSON retornado pelo Flask (username, password, role)
+                        },
+                        error: function (xhr, status, error) {
+                            // Função chamada se houver algum erro com a requisição
+            
+                            // Exibe um alerta com a mensagem de erro retornada pelo servidor
+                            alert(`Erro: ${xhr.responseJSON.erro}`);
+                            // O 'xhr.responseJSON' contém o objeto JSON com o erro retornado pelo Flask
+                        }
+                    });
+                });
+            });
+        </script>
+        
+        
+
+        
 
         <div id="excluirUsuarioDiv" class="flex-grow flex items-start justify-center p-8 hidden">
             <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">
