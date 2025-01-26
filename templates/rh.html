@@ -6,14 +6,18 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style-rh.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Cadastro de Usuário</title>
+    <title>Gerenciamento de Usuário</title>
     <link href="/static/images/chart-pie-solid.svg" rel="icon">
 </head>
 <body>
 
     <div class="flex">
         <nav class="bg-gray-500 w-64 p-4 flex flex-col border-r border-gray-300 mt-2">
-            <a href="/login" class="text-black text-2xl font-semibold mb-8">Inicio</a>
+            <button 
+                onclick="window.location.href='/login'" 
+                class="text-white  text-xs px-2 py-1 font-semibold mb-8 bg-black border-gray-300 cursor-pointer focus:outline-none">Início</button>
+
+            
             <div class="flex flex-col space-y-4 mt-4">
                 <div>
                     <button class="text-white hover:text-gray-400 w-full text-left" id="menu-toggle-cadastro">
@@ -24,11 +28,10 @@
                     </button>
                     <div id="submenu-cadastro" class="hidden pl-4 space-y-4">
                         <br>
-                        <button  class="custom-button text-white font-bold py-2 px-4 rounded w-full mb-2" id="openaddgerenteBtn">Cadastro de Gerente</button>
-                        <button  class=" custom-button text-white font-bold py-2 px-4 rounded w-full" id="openaddvendedorBtn">Cadastro de Vendedor</button>
+                        <button class="custom-button text-white font-bold py-2 px-4 rounded w-full mb-2" id="openaddgerenteBtn">Cadastro de Gerente</button>
+                        <button class="custom-button text-white font-bold py-2 px-4 rounded w-full" id="openaddvendedorBtn">Cadastro de Vendedor</button>
                     </div>
                 </div>
-
                 <div class="space-y-4 button-container">
                     <button class="custom-button" id="openAlterarSenhaBtn">Alterar Senha</button>
                     <button class="custom-button" id="openVisualizarSenhaBtn">Visualizar Senha</button>
@@ -36,6 +39,7 @@
                 </div>
             </div>
         </nav>
+        
 
         <div id="formDiv" class="flex-grow flex items-start justify-center p-8 hidden">
             <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">
