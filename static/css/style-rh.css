@@ -77,7 +77,13 @@ footer {
     background-color: #727374 !important; /* Cor do hover */
     color: rgb(250, 250, 250) !important; /* Cor do texto no hover */
 }
-
+.custom-logout-btn {
+    padding: 0.25rem 0.5rem !important; /* Ajuste o padding horizontal e vertical conforme necessário */
+    border: 1px solid #ccc !important;  /* Defina uma borda se necessário */
+    border-radius: 2px !important ;  /* Suaviza as bordas */
+    width: auto !important; /* Garante que a largura se ajuste ao conteúdo */
+    display: inline-block !important;  /* Impede o botão de ocupar toda a largura */
+}
 
 
 /* Responsividade */
