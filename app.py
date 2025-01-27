@@ -258,13 +258,48 @@ def consultar_usuario():
 
 @app.route('/deletar', methods=['POST'])
 def deletar_usuario():
-    username = request.form['username']
+    # Recebe o JSON enviado pelo frontend
+    data = request.get_json()  # Aqui usamos get_json para acessar o conteúdo JSON
+    username = data.get('usernamedel')  # Acessa o campo 'usernamedel'
 
-    sql = "DELETE FROM usuarios WHERE username = %s"
-    cursor = executar_sql(sql, (username,))
-    if cursor and cursor.rowcount != 0:
-        return f"Usuário '{username}' deletado com sucesso!"
-    return "Usuário não encontrado ou erro ao deletar."
+    if not username:
+        return jsonify({"message": "O nome de usuário é obrigatório!"}), 400
+
+    try:
+        # Conectar ao banco de dados
+        conn = conectar_bd()
+        cursor = conn.cursor(dictionary=True)
+
+        # Consulta SQL para verificar se o usuário existe
+        sql = "SELECT username, password, role FROM usuarios WHERE username = %s"
+        cursor.execute(sql, (username,))
+        usuario = cursor.fetchone()
+
+        # Verifica se o usuário foi encontrado
+        if not usuario:
+            cursor.close()
+            conn.close()
+            return jsonify({"message": "Usuário não encontrado."}), 404
+
+        # Deletar o usuário
+        sql = "DELETE FROM usuarios WHERE username = %s"
+
+        cursor.execute(sql, (username,))
+        conn.commit()  # Commit da transação
+
+        if cursor.rowcount > 0:
+            cursor.close()
+            conn.close()
+            return jsonify({"message": f"Usuário '{username}' deletado com sucesso!"}), 200
+        else:
+            cursor.close()
+            conn.close()
+            return jsonify({"message": "Erro ao deletar usuário."}), 500
+
+    except Exception as e:
+        # Se houver algum erro, retorna uma mensagem de erro genérica
+        return jsonify({"message": f"Erro ao processar a solicitação: {str(e)}"}), 500
+
 
 @app.route('/addvendedor', methods=['POST'])
 def adicionar_vendedor():
