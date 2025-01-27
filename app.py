@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify, flash
 import mysql.connector
 import os
 
@@ -309,26 +309,56 @@ def adicionar_vendedor():
     conn = conectar_bd()
     cursor = conn.cursor(dictionary=True)
 
+    # Verificar se o nome de usuário ou senha já existe
+    cursor.execute("SELECT * FROM usuarios WHERE username = %s OR password = %s", (username, password))
+    user_exists = cursor.fetchone()
 
-    # SQL para inserir o usuário como vendedor
-    sql = "INSERT INTO usuarios (username, password, role) VALUES (%s, %s, %s)"
-    cursor = executar_sql(sql, (username, password, role))
-    if cursor and cursor.rowcount != 0:
-        return f"Usuário Vendedor'{username}' adicionado com sucesso!"
-    return "Usuário não pode ser adicionado."
-   
+    if user_exists:
+        mensagem = "Erro: Nome de usuário ou senha já existe!"
+    elif username == password:
+        mensagem = "Erro: Nome de usuário não pode ser igual à senha!"
+    else:
+        # SQL para inserir o usuário como vendedor
+        sql = "INSERT INTO usuarios (username, password, role) VALUES (%s, %s, %s)"
+        cursor.execute(sql, (username, password, role))
+        
+        if cursor.rowcount != 0:
+            mensagem = f"Usuário Vendedor '{username}' adicionado com sucesso!"
+        else:
+            mensagem = "Erro: Usuário não pode ser adicionado."
+    
+    # Renderiza a página 'rh.html' com a mensagem
+    return render_template('rh.html', mensagem=mensagem)
+
+
 @app.route('/addgerente', methods=['POST'])
 def adicionar_gerente():
     username = request.form['username']
     password = request.form['password']
     role = 'gerente'
+    conn = conectar_bd()
+    cursor = conn.cursor(dictionary=True)
 
-    # SQL para inserir o usuário como vendedor
-    sql = "INSERT INTO usuarios (username, password, role) VALUES (%s, %s, %s)"
-    cursor = executar_sql(sql, (username, password, role))
-    if cursor and cursor.rowcount != 0:
-        return f"Usuário Gerente'{username}' adicionado com sucesso!"
-    return "Usuário não pode ser adicionado."
+    # Verificar se o nome de usuário ou senha já existe
+    cursor.execute("SELECT * FROM usuarios WHERE username = %s OR password = %s", (username, password))
+    user_exists = cursor.fetchone()
+
+    if user_exists:
+        mensagem = "Erro: Nome de usuário ou senha já existe!"
+    elif username == password:
+        mensagem = "Erro: Nome de usuário não pode ser igual à senha!"
+    else:
+        # SQL para inserir o usuário como gerente
+        sql = "INSERT INTO usuarios (username, password, role) VALUES (%s, %s, %s)"
+        cursor.execute(sql, (username, password, role))
+        
+        if cursor.rowcount != 0:
+            mensagem = f"Usuário Gerente '{username}' adicionado com sucesso!"
+        else:
+            mensagem = "Erro: Usuário não pode ser adicionado."
+    
+    # Renderiza a página 'rh.html' com a mensagem
+    return render_template('rh.html', mensagem=mensagem)
 
 @app.route("/addg")
 def addg():
