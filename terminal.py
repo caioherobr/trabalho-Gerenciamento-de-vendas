@@ -148,5 +148,14 @@ def main():
     app = TelaLogin(root)
     root.mainloop()
 
+/*botao de logout*/
+
+   def logout(self):
+        # Fecha a janela de vendas
+        self.master.quit()
+        # Abre a tela de login novamente
+        root_login = tk.Tk()
+        app_login = TelaLogin(root_login)
+        root_login.mainloop()
 if __name__ == "__main__":
     main()
