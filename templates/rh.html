@@ -173,7 +173,7 @@
         </div>
         <div id="addgerenteDiv" class="flex-grow flex items-start justify-center p-8 hidden">
             <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">
-                <form action="/add-gerente" method="post">
+                <form id="addGerenteForm" action="/add-gerente" method="post">
                     <div class="mb-4">
                         <label for="username" class="text-white">Novo Usuario Gerente :</label>
                         <input type="text" id="username" name="username" required class="w-full p-2 border border-gray-300 rounded mt-2" required>
@@ -188,7 +188,7 @@
         </div>
         <div id="addvendedorDiv" class="flex-grow flex items-start justify-center p-8 hidden">
             <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">
-                <form action="/add-vendedor" method="post">
+                <form  id="addVendedorForm" action="/add-vendedor" method="post">
                     <div class="mb-4">
                         <label for="username" class="text-white">Novo Usuario Vendedor:</label>
                         <input type="text" id="username" name="username" required class="w-full p-2 border border-gray-300 rounded mt-2" required>
@@ -208,50 +208,8 @@
             <p>&copy; 2025 Empresa. Todos os direitos reservados.</p>
         </div>
     </footer>
-
-    <script>
-        // Elementos dos botões
-        const menuToggleCadastro = document.getElementById('menu-toggle-cadastro');
-        const submenuCadastro = document.getElementById('submenu-cadastro');
     
-        const openaddgerenteBtn = document.getElementById('openaddgerenteBtn');
-        const openaddvendedorBtn = document.getElementById('openaddvendedorBtn');
-        const openAlterarSenhaBtn = document.getElementById('openAlterarSenhaBtn');
-        const openVisualizarSenhaBtn = document.getElementById('openVisualizarSenhaBtn');
-        const openExcluirUsuarioBtn = document.getElementById('openExcluirUsuarioBtn');
-    
-        // Elementos das seções
-        const addgerenteDiv = document.getElementById('addgerenteDiv');
-        const addvendedorDiv = document.getElementById('addvendedorDiv');
-        const alterarSenhaDiv = document.getElementById('alterarSenhaDiv');
-        const visualizarSenhaDiv = document.getElementById('visualizarSenhaDiv');
-        const excluirUsuarioDiv = document.getElementById('excluirUsuarioDiv');
-    
-        // Lista de todas as seções
-        const sections = [addgerenteDiv, addvendedorDiv, alterarSenhaDiv, visualizarSenhaDiv, excluirUsuarioDiv];
-    
-        // Função para alternar visibilidade
-        function toggleVisibility(targetDiv) {
-            // Oculta todas as seções
-            sections.forEach(div => div.classList.add('hidden'));
-            // Exibe apenas a seção selecionada
-            targetDiv.classList.remove('hidden');
-        }
-    
-        // Evento do menu para exibir/ocultar o submenu
-        menuToggleCadastro.addEventListener('click', () => {
-            submenuCadastro.classList.toggle('hidden');
-        });
-    
-        // Eventos dos botões para alternar as seções
-        openaddgerenteBtn.addEventListener('click', () => toggleVisibility(addgerenteDiv));
-        openaddvendedorBtn.addEventListener('click', () => toggleVisibility(addvendedorDiv));
-        openAlterarSenhaBtn.addEventListener('click', () => toggleVisibility(alterarSenhaDiv));
-        openVisualizarSenhaBtn.addEventListener('click', () => toggleVisibility(visualizarSenhaDiv));
-        openExcluirUsuarioBtn.addEventListener('click', () => toggleVisibility(excluirUsuarioDiv));
-    </script>
-    
-
+    <script src="/static/js/rh.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
