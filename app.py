@@ -312,6 +312,7 @@ def adicionar_vendedor():
     # Verificar se o nome de usuário ou senha já existe
     cursor.execute("SELECT * FROM usuarios WHERE username = %s OR password = %s", (username, password))
     user_exists = cursor.fetchone()
+    conn.commit()
 
     if user_exists:
         mensagem = "Erro: Nome de usuário ou senha já existe!"
@@ -321,6 +322,7 @@ def adicionar_vendedor():
         # SQL para inserir o usuário como vendedor
         sql = "INSERT INTO usuarios (username, password, role) VALUES (%s, %s, %s)"
         cursor.execute(sql, (username, password, role))
+
         
         if cursor.rowcount != 0:
             mensagem = f"Usuário Vendedor '{username}' adicionado com sucesso!"
