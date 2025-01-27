@@ -120,8 +120,13 @@ class TelaVendas:
         self.entry_valor = tk.Entry(master)
         self.entry_valor.grid(row=0, column=1, **padding, sticky=tk.E)
 
+        # Botão de salvar venda
         self.botao_salvar = tk.Button(master, text="Salvar Venda", command=self.salvar_venda)
-        self.botao_salvar.grid(row=1, column=0, columnspan=2, pady=(15, 5))  # Ajustando o layout
+        self.botao_salvar.grid(row=1, column=0, pady=(15, 5), sticky=tk.W)
+
+        # Botão de logout, ao lado do botão de salvar
+        self.botao_logout = tk.Button(master, text="Logout", command=self.logoutx)
+        self.botao_logout.grid(row=1, column=1, pady=(15, 5), padx=(10, 0), sticky=tk.E)  # Coloca à direita do botão de salvar
 
     def salvar_venda(self):
         try:
@@ -143,22 +148,23 @@ class TelaVendas:
         except ValueError as e:  # Captura o erro específico de valor
             messagebox.showerror("Erro", str(e))  # Mostra a mensagem de erro
 
+    def logoutx(self):
+        # Fecha a janela de vendas
+        self.master.quit()
+        self.master.destroy()
+        
+        # Cria a janela de login
+        root_login = tk.Tk()  # A variável root_login precisa ser criada antes de ser usada
+        app_login = TelaLogin(root_login)  # Instanciando a classe TelaLogin, passando root_login como parâmetro
+        root_login.mainloop()  # Inicia o loop da janela de login
+        
+
+
+
 def main():
     root = tk.Tk()
     app = TelaLogin(root)
     root.mainloop()
-
-# botao de logout
-
-def logout(self):
-        # Fecha a janela de vendas
-        self.master.quit()
-        # Abre a tela de login novamente
-        root_login = tk.Tk()
-        app_login = TelaLogin(root_login)
-        root_login.mainloop()
-
-
 
 if __name__ == "__main__":
     main()
