@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.messagebox as messagebox
 import mysql.connector
 from datetime import datetime
+from tkinter import ttk
 
 # Configuração de conexão com o banco de dados
 db_config = {
@@ -11,7 +12,18 @@ db_config = {
     'database': 'gerenciamento'
 }
 
-# Funções do banco de dados (MySQL)
+# Definição de cores e estilos - Cores mais vibrantes e sólidas
+COLORS = {
+    'background': '#E8EAF6',  # Azul claro sólido
+    'primary': '#3F51B5',     # Azul índigo
+    'secondary': '#536DFE',   # Azul mais vibrante
+    'text': '#1A237E',        # Azul escuro para texto
+    'button': '#304FFE',      # Azul vibrante para botões
+    'button_hover': '#1A237E', # Azul escuro para hover
+    'frame_bg': '#C5CAE9'     # Azul mais claro para frames
+}
+
+# [Mantidas as funções de banco de dados originais]
 def verificar_login(mydb, nome_usuario, senha):
     try:
         mycursor = mydb.cursor()
@@ -20,9 +32,9 @@ def verificar_login(mydb, nome_usuario, senha):
         resultado = mycursor.fetchone()
         
         if resultado:
-            senha_armazenada = resultado[1]  # Senha armazenada no banco (em texto claro)
-            if senha == senha_armazenada:  # Comparando senhas em texto claro
-                if resultado[2] == 'vendedor':  # Verificando o papel do usuário
+            senha_armazenada = resultado[1]
+            if senha == senha_armazenada:
+                if resultado[2] == 'vendedor':
                     return True
         return False
     except mysql.connector.Error as err:
@@ -58,22 +70,94 @@ def obter_id_usuario(mydb, nome_usuario):
 class TelaLogin:
     def __init__(self, master):
         self.master = master
-        master.title("Login")
-        master.geometry("300x200")
+        master.title("Sistema de Vendas - Login")
+        
+        # Configuração da janela
+        window_width = 400
+        window_height = 300
+        screen_width = master.winfo_screenwidth()
+        screen_height = master.winfo_screenheight()
+        x = (screen_width - window_width) // 2
+        y = (screen_height - window_height) // 2
+        master.geometry(f'{window_width}x{window_height}+{x}+{y}')
+        master.configure(bg=COLORS['background'])
         self.master.protocol("WM_DELETE_WINDOW", self.fechar)
 
-        self.label_usuario = tk.Label(master, text="Usuário:")
-        self.label_usuario.pack(pady=5)
-        self.entry_usuario = tk.Entry(master)
-        self.entry_usuario.pack(pady=5)
+        # Estilo para os widgets ttk
+        self.style = ttk.Style()
+        self.style.configure('TFrame', background=COLORS['frame_bg'])
+        self.style.configure('TLabel', 
+                           background=COLORS['frame_bg'],
+                           foreground=COLORS['text'],
+                           font=('Helvetica', 10))
+        self.style.configure('TEntry', 
+                           fieldbackground='white',
+                           borderwidth=2)
+        self.style.configure('Login.TButton',
+                           background=COLORS['button'],
+                           foreground='white',
+                           padding=(20, 10),
+                           font=('Helvetica', 10, 'bold'))
 
-        self.label_senha = tk.Label(master, text="Senha:")
-        self.label_senha.pack(pady=5)
-        self.entry_senha = tk.Entry(master, show="*")
-        self.entry_senha.pack(pady=5)
+        # Frame principal com cor sólida
+        self.main_frame = ttk.Frame(master, style='TFrame')
+        self.main_frame.pack(expand=True, fill='both', padx=40, pady=40)
 
-        self.botao_login = tk.Button(master, text="Login", command=self.fazer_login)
-        self.botao_login.pack(pady=10)
+        # Título
+        self.title_label = tk.Label(self.main_frame,
+                                  text="Login do Sistema",
+                                  font=('Helvetica', 18, 'bold'),
+                                  bg=COLORS['frame_bg'],
+                                  fg=COLORS['primary'])
+        self.title_label.pack(pady=(0, 30))
+
+        # Frame para campos de entrada
+        self.input_frame = ttk.Frame(self.main_frame)
+        self.input_frame.pack(fill='x', padx=20)
+
+        # Campo usuário
+        self.label_usuario = ttk.Label(self.input_frame,
+                                     text="Usuário:",
+                                     style='TLabel',
+                                     font=('Helvetica', 12))
+        self.label_usuario.pack(anchor='w')
+        
+        self.entry_usuario = ttk.Entry(self.input_frame,
+                                     width=30,
+                                     font=('Helvetica', 12))
+        self.entry_usuario.pack(fill='x', pady=(5, 15))
+
+        # Campo senha
+        self.label_senha = ttk.Label(self.input_frame,
+                                   text="Senha:",
+                                   style='TLabel',
+                                   font=('Helvetica', 12))
+        self.label_senha.pack(anchor='w')
+        
+        self.entry_senha = ttk.Entry(self.input_frame,
+                                   show="•",
+                                   width=30,
+                                   font=('Helvetica', 12))
+        self.entry_senha.pack(fill='x', pady=(5, 20))
+
+        # Botão personalizado
+        self.login_button = tk.Button(self.input_frame,
+                                    text="Entrar",
+                                    command=self.fazer_login,
+                                    bg=COLORS['button'],
+                                    fg='white',
+                                    font=('Helvetica', 12, 'bold'),
+                                    relief='flat',
+                                    padx=20,
+                                    pady=10,
+                                    cursor='hand2')
+        self.login_button.pack(fill='x')
+        
+        # Adiciona efeito hover ao botão
+        self.login_button.bind('<Enter>', lambda e: self.login_button.configure(
+            bg=COLORS['button_hover']))
+        self.login_button.bind('<Leave>', lambda e: self.login_button.configure(
+            bg=COLORS['button']))
 
     def fazer_login(self):
         nome_usuario = self.entry_usuario.get()
@@ -83,15 +167,12 @@ class TelaLogin:
             messagebox.showerror("Erro", "Por favor, preencha os campos de usuário e senha.")
             return
         
-        # Conectar ao banco de dados
         try:
-            mydb = mysql.connector.connect(**db_config)  # Usando db_config para conectar ao banco
-            
-            # Verificar login
+            mydb = mysql.connector.connect(**db_config)
             if verificar_login(mydb, nome_usuario, senha):
                 messagebox.showinfo("Sucesso", "Login realizado com sucesso!")
-                self.master.destroy()  # Fechar a tela de login
-                self.abrir_tela_vendas(nome_usuario, mydb)  # Abrir a tela de vendas
+                self.master.destroy()
+                self.abrir_tela_vendas(nome_usuario, mydb)
             else:
                 messagebox.showerror("Erro", "Usuário ou senha inválidos.")
         except mysql.connector.Error as err:
@@ -108,58 +189,121 @@ class TelaLogin:
 class TelaVendas:
     def __init__(self, master, usuario_logado, mydb):
         self.master = master
-        master.title("Terminal de Vendas - Input de Vendas")
         self.usuario_logado = usuario_logado
         self.mydb = mydb
-        master.geometry("400x300")
-        padding = {'padx': 10, 'pady': 5}
+        
+        master.title("Sistema de Vendas - Terminal")
+        
+        # Configuração da janela
+        window_width = 500
+        window_height = 400
+        screen_width = master.winfo_screenwidth()
+        screen_height = master.winfo_screenheight()
+        x = (screen_width - window_width) // 2
+        y = (screen_height - window_height) // 2
+        master.geometry(f'{window_width}x{window_height}+{x}+{y}')
+        master.configure(bg=COLORS['background'])
 
-        # Widgets de input de vendas
-        self.label_valor = tk.Label(master, text="Valor Unitário:")
-        self.label_valor.grid(row=0, column=0, **padding, sticky=tk.W)
-        self.entry_valor = tk.Entry(master)
-        self.entry_valor.grid(row=0, column=1, **padding, sticky=tk.E)
+        # Frame principal
+        self.main_frame = tk.Frame(master, bg=COLORS['frame_bg'])
+        self.main_frame.pack(expand=True, fill='both', padx=40, pady=40)
 
-        # Botão de salvar venda
-        self.botao_salvar = tk.Button(master, text="Salvar Venda", command=self.salvar_venda)
-        self.botao_salvar.grid(row=1, column=0, pady=(15, 5), sticky=tk.W)
+        # Cabeçalho
+        self.header_frame = tk.Frame(self.main_frame, bg=COLORS['frame_bg'])
+        self.header_frame.pack(fill='x', pady=(0, 30))
 
-        # Botão de logout, ao lado do botão de salvar
-        self.botao_logout = tk.Button(master, text="Logout", command=self.logoutx)
-        self.botao_logout.grid(row=1, column=1, pady=(15, 5), padx=(10, 0), sticky=tk.E)  # Coloca à direita do botão de salvar
+        self.title_label = tk.Label(self.header_frame,
+                                  text="Terminal de Vendas",
+                                  font=('Helvetica', 18, 'bold'),
+                                  bg=COLORS['frame_bg'],
+                                  fg=COLORS['primary'])
+        self.title_label.pack(side='left')
+
+        self.user_label = tk.Label(self.header_frame,
+                                 text=f"Usuário: {usuario_logado}",
+                                 font=('Helvetica', 12),
+                                 bg=COLORS['frame_bg'],
+                                 fg=COLORS['text'])
+        self.user_label.pack(side='right')
+
+        # Frame para entrada de valor
+        self.input_frame = tk.Frame(self.main_frame, bg=COLORS['frame_bg'])
+        self.input_frame.pack(fill='x', padx=20)
+
+        self.label_valor = tk.Label(self.input_frame,
+                                  text="Valor da Venda:",
+                                  font=('Helvetica', 12),
+                                  bg=COLORS['frame_bg'],
+                                  fg=COLORS['text'])
+        self.label_valor.pack(anchor='w')
+        
+        self.entry_valor = ttk.Entry(self.input_frame,
+                                   width=30,
+                                   font=('Helvetica', 12))
+        self.entry_valor.pack(fill='x', pady=(5, 20))
+
+        # Frame para botões
+        self.button_frame = tk.Frame(self.main_frame, bg=COLORS['frame_bg'])
+        self.button_frame.pack(fill='x', padx=20)
+
+        # Botões personalizados
+        self.salvar_button = tk.Button(self.button_frame,
+                                     text="Registrar Venda",
+                                     command=self.salvar_venda,
+                                     bg=COLORS['button'],
+                                     fg='white',
+                                     font=('Helvetica', 12, 'bold'),
+                                     relief='flat',
+                                     padx=20,
+                                     pady=10,
+                                     cursor='hand2')
+        self.salvar_button.pack(side='left')
+
+        self.logout_button = tk.Button(self.button_frame,
+                                     text="Sair",
+                                     command=self.logoutx,
+                                     bg=COLORS['button'],
+                                     fg='white',
+                                     font=('Helvetica', 12, 'bold'),
+                                     relief='flat',
+                                     padx=20,
+                                     pady=10,
+                                     cursor='hand2')
+        self.logout_button.pack(side='right')
+
+        # Adiciona efeito hover aos botões
+        for button in [self.salvar_button, self.logout_button]:
+            button.bind('<Enter>', lambda e, b=button: b.configure(
+                bg=COLORS['button_hover']))
+            button.bind('<Leave>', lambda e, b=button: b.configure(
+                bg=COLORS['button']))
 
     def salvar_venda(self):
         try:
-            valor_str = self.entry_valor.get()  # Pega o valor como string
-            if not valor_str:  # Verifica se o campo está vazio
-                raise ValueError("O campo Valor Unitário não pode estar vazio.")
+            valor_str = self.entry_valor.get()
+            if not valor_str:
+                raise ValueError("O campo Valor da Venda não pode estar vazio.")
             valor = float(valor_str)
             data_atual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             usuario_id = obter_id_usuario(self.mydb, self.usuario_logado)
 
             if usuario_id is not None:
                 if inserir_venda(self.mydb, data_atual, valor, usuario_id):
-                    messagebox.showinfo("Sucesso", "Venda salva com sucesso!")
-                    self.entry_valor.delete(0, tk.END)  # Limpa o campo
+                    messagebox.showinfo("Sucesso", "Venda registrada com sucesso!")
+                    self.entry_valor.delete(0, tk.END)
                 else:
-                    messagebox.showerror("Erro", "Erro ao salvar a venda.")
+                    messagebox.showerror("Erro", "Erro ao registrar a venda.")
             else:
                 messagebox.showerror("Erro", "Erro ao obter ID do usuário.")
-        except ValueError as e:  # Captura o erro específico de valor
-            messagebox.showerror("Erro", str(e))  # Mostra a mensagem de erro
+        except ValueError as e:
+            messagebox.showerror("Erro", str(e))
 
     def logoutx(self):
-        # Fecha a janela de vendas
         self.master.quit()
         self.master.destroy()
-        
-        # Cria a janela de login
-        root_login = tk.Tk()  # A variável root_login precisa ser criada antes de ser usada
-        app_login = TelaLogin(root_login)  # Instanciando a classe TelaLogin, passando root_login como parâmetro
-        root_login.mainloop()  # Inicia o loop da janela de login
-        
-
-
+        root_login = tk.Tk()
+        app_login = TelaLogin(root_login)
+        root_login.mainloop()
 
 def main():
     root = tk.Tk()
