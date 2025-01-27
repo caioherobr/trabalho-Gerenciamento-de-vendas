@@ -61,19 +61,51 @@
 
         <div id="alterarSenhaDiv" class="flex-grow flex items-start justify-center p-8 hidden">
             <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">
-                <form action="/alterar-senha" method="post">
+                <form id="alterarSenhaForm">
                     <div class="mb-4">
-                        <label for="username" class="block text-white">Usuario a ser Alterado:</label>
-                        <input type="text" id="username" name="username" required class="w-full p-2 border border-gray-300 rounded mt-2" required>
+                        <label for="usernamechange" class="block text-white">Usuário a ser Alterado:</label>
+                        <input type="text" id="usernamechange" name="usernamechange" required class="w-full p-2 border border-gray-300 rounded mt-2">
                     </div>
                     <div class="mb-4">
-                        <label for="password" class="block text-white">Nova Senha:</label>
-                        <input type="password" id="password" name="password" class="w-full p-2 border border-gray-300 rounded mt-2" required>
+                        <label for="passwordchange" class="block text-white">Nova Senha:</label>
+                        <input type="password" id="passwordchange" name="passwordchange" class="w-full p-2 border border-gray-300 rounded mt-2" required>
                     </div>
-                    <button type="submit" formaction="/atualizar" class="w-full bg-black text-white p-2 rounded">Alterar Senha</button>
+                    <button type="submit" class="w-full bg-black text-white p-2 rounded">Alterar Senha</button>
                 </form>
             </div>
         </div>
+        
+        <script>
+            document.getElementById('alterarSenhaForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Impede o envio tradicional do formulário
+        
+                let username = document.getElementById('usernamechange').value;
+                let password = document.getElementById('passwordchange').value;  // Corrigido para 'passwordchange'
+        
+                // Cria o objeto JSON com os dados do formulário
+                let data = {
+                    username: username,
+                    password: password
+                };
+        
+                // Envia a requisição AJAX usando o fetch
+                fetch('/atualizar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'  // Indica que os dados estão em JSON
+                    },
+                    body: JSON.stringify(data)  // Converte os dados para JSON
+                })
+                .then(response => response.json())  // Converte a resposta do servidor para JSON
+                .then(data => {
+                    alert(data.message);  // Exibe a mensagem de sucesso ou erro retornada pelo servidor
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert('Ocorreu um erro ao tentar alterar a senha.');
+                });
+            });
+        </script>
 
         <div id="visualizarSenhaDiv" class="flex-grow flex items-start justify-center p-8 hidden">
             <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">

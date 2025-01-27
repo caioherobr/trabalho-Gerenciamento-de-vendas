@@ -188,29 +188,35 @@ def logout():
 
 @app.route('/atualizar', methods=['POST'])
 def atualizar_senha():
-    username = request.form['username']  # O campo 'username' vindo do formulário
-    nova_senha = request.form['password']  # O campo 'nova_senha' vindo do formulário
-    conn = conectar_bd()  # Função que cria a conexão
+    # Recebe os dados em formato JSON da requisição AJAX
+    data = request.get_json()
+
+    username = data['username']
+    nova_senha = data['password']
+    
+    conn = conectar_bd()
     cursor = conn.cursor(dictionary=True)
     
-    # Atualizar a senha no banco de dados
+    # Consulta SQL para atualizar a senha do usuário
     sql = "UPDATE usuarios SET password = %s WHERE username = %s"
     
     try:
-        # Executar a consulta
-        cursor.execute(sql, (nova_senha, username))  # Ordem correta dos parâmetros!
+        cursor.execute(sql, (nova_senha, username))
         
-        # Verificar se a atualização afetou alguma linha
-        print("Número de linhas afetadas:", cursor.rowcount)  # Para debug
-        
-        if cursor.rowcount > 0:
-            # Confirma a transação se a senha foi atualizada
-            conn.commit()  # Commit deve ser feito na conexão
-            return f"Senha do usuário '{username}' atualizada com sucesso!"
+        if cursor.rowcount > 0:  # Se a atualização afetou alguma linha
+            conn.commit()  # Commit da transação
+            return jsonify({"message": f"Senha do usuário '{username}' atualizada com sucesso para '{nova_senha}'."})
         else:
-            return "Usuário não encontrado ou nenhum dado alterado."
+            return jsonify({"message": "Usuário não encontrado ou nenhum dado alterado."})
+    
     except Exception as e:
-        return f"Erro ao tentar atualizar a senha: {str(e)}"
+        conn.rollback()  # Reverte qualquer mudança não confirmada
+        return jsonify({"message": f"Erro ao tentar atualizar a senha: {str(e)}"})
+    
+    finally:
+        cursor.close()
+        conn.close()
+
     
 @app.route('/consultar', methods=['POST'])
 def consultar_usuario():
