@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)  # Chave segura para a sessão
 
 db_config = {
-    'host': 'gerenciavendas.mysql.database.azure.com',
+    'host': 'gerenciavendas2.mysql.database.azure.com',
     'user': 'adm',
     'password': 'aluno@123',
     'database': 'gerenciamento'
