@@ -312,8 +312,7 @@ def adicionar_vendedor():
         cursor = conn.cursor(dictionary=True)
 
         # Verificar se o nome de usuário ou senha já existe
-        cursor.execute("SELECT * FROM usuarios WHERE username = %s OR password = %s", (username, password))
-        user_exists = cursor.fetchone()      
+         
             # SQL para inserir o usuário como vendedor
         sql = "INSERT INTO usuarios (username, password, role) VALUES (%s, %s, %s)"
         cursor.execute(sql, (username, password, role))
