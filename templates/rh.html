@@ -262,18 +262,54 @@
             <div class="bg-gray-500 p-8 rounded shadow-md w-96 mt-4">
                 <form  id="addVendedorForm" action="/add-vendedor" method="post">
                     <div class="mb-4">
-                        <label for="username" class="text-white">Novo Usuario Vendedor:</label>
-                        <input type="text" id="username" name="username" required class="w-full p-2 border border-gray-300 rounded mt-2" required>
+                        <label for="usernames" class="text-white">Novo Usuario Vendedor:</label>
+                        <input type="text" id="usernames" name="usernames" required class="w-full p-2 border border-gray-300 rounded mt-2" required>
                     </div>
                     <div class="mb-4">
-                        <label for="newPassword" class="text-white">Nova Senha Vendedor:</label>
-                        <input type="password" id="password" name="password" class="w-full p-2 border border-gray-300 rounded mt-2" required>
+                        <label for="Passwords" class="text-white">Nova Senha Vendedor:</label>
+                        <input type="password" id="passwords" name="passwords" class="w-full p-2 border border-gray-300 rounded mt-2" required>
                     </div>
-                    <button type="submit" formaction="/addvendedor" class="w-full bg-black text-white p-2 rounded">Criar Acesso</button>
+                    <button type="submit"  class="w-full bg-black text-white p-2 rounded">Criar Acesso</button>
                 </form>
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('addVendedorForm').addEventListener('submit', function (event) {
+    // Impede o comportamento padrão de envio do formulário (recarregar a página)   
+    event.preventDefault();
+
+    // Captura os dados do formulário
+    const formData = {
+        usernames: document.getElementById('usernames').value,
+        passwords: document.getElementById('passwords').value,
+    };
+
+    // Envia os dados via AJAX      
+    fetch('/addvendedor', { // Substitua pela URL do seu endpoint
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', // Define o tipo de conteúdo como JSON
+        },
+        body: JSON.stringify(formData), // Converte os dados para JSON
+    })
+    .then(response => response.json()) // Converte a resposta para JSON
+    .then(data => {
+        // Exibe uma mensagem de sucesso ou erro
+        if (data.success) {
+            alert('Vendedor adicionado com sucesso!');
+        } else {
+            alert('Erro ao adicionar vendedor: ' + data.message);
+        }
+    })  
+    .catch(error => {
+        console.error('Erro:', error);
+        alert('Ocorreu um erro ao enviar os dados.');
+    });
+});
+    </script>
+
+
 
     <footer>
         <div class="footer-bottom">

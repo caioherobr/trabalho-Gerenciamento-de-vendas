@@ -303,35 +303,33 @@ def deletar_usuario():
 
 @app.route('/addvendedor', methods=['POST'])
 def adicionar_vendedor():
-    username = request.form.get['username']
-    password = request.form.get['password']
-    role = 'vendedor'
-    conn = conectar_bd()
-    cursor = conn.cursor(dictionary=True)
+    try:
+        dados = request.get_json()
+        username = dados['usernames']
+        password = dados['passwords']
+        role = 'vendedor'
+        conn = conectar_bd()
+        cursor = conn.cursor(dictionary=True)
 
-    # Verificar se o nome de usuário ou senha já existe
-    cursor.execute("SELECT * FROM usuarios WHERE username = %s OR password = %s", (username, password))
-    user_exists = cursor.fetchone()
-    conn.commit()
-
-    if user_exists:
-        mensagem = "Erro: Nome de usuário ou senha já existe!"
-    elif username == password:
-        mensagem = "Erro: Nome de usuário não pode ser igual à senha!"
-    else:
-        # SQL para inserir o usuário como vendedor
+        # Verificar se o nome de usuário ou senha já existe
+        cursor.execute("SELECT * FROM usuarios WHERE username = %s OR password = %s", (username, password))
+        user_exists = cursor.fetchone()      
+            # SQL para inserir o usuário como vendedor
         sql = "INSERT INTO usuarios (username, password, role) VALUES (%s, %s, %s)"
         cursor.execute(sql, (username, password, role))
         conn.commit()
 
-        
         if cursor.rowcount != 0:
-            mensagem = f"Usuário Vendedor '{username}' adicionado com sucesso!"
+            return jsonify({"success": True, "message": f"Usuário Vendedor '{username}' adicionado com sucesso!"}), 201
         else:
-            mensagem = "Erro: Usuário não pode ser adicionado."
-    
-    # Renderiza a página 'rh.html' com a mensagem
-    return render_template('rh.html', mensagem=mensagem)
+            return jsonify({"success": False, "message": "Erro: Usuário não pode ser adicionado."}), 500
+
+    except Exception as e:
+        return jsonify({"success": False, "message": f"Erro interno: {str(e)}"}), 500
+
+    finally: 
+        cursor.close()
+        conn.close()
 
 
 
