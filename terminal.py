@@ -6,7 +6,7 @@ from tkinter import ttk
 
 # Configuração de conexão com o banco de dados
 db_config = {
-    'host': 'gerenciavendas.mysql.database.azure.com',
+    'host': 'gerenciavendas2.mysql.database.azure.com',
     'user': 'adm',
     'password': 'aluno@123',
     'database': 'gerenciamento'
