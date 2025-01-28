@@ -43,19 +43,11 @@ openExcluirUsuarioBtn.addEventListener('click', () => toggleVisibility(excluirUs
         alert(message); // Pode ser substituído por qualquer outro tipo de popup, como SweetAlert.
     }
 
-    document.getElementById('addGerenteForm').addEventListener('submit', function(event) {
-        event.preventDefault();
 
-        showPopup('Gerente cadastrado com sucesso!');
 
-});
  // Função para mostrar o Popup Cadastro Vendedor
     function showPopup(message) {
         alert(message);
-    }
-        document.getElementById('addVendedorForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            showPopup('Vendedor cadastrado com sucesso!');
-
-
-});
+    
+        
+};
