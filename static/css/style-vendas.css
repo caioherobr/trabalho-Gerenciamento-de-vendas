@@ -1,74 +1,150 @@
+/* Estilos gerais do corpo */
 .relatorio-vendas body {
-    background-color: #fcfafa;
-    color: #030303;
+    background-color: #f4f7f6; /* Cor de fundo mais suave */
+    color: #333; /* Cor de texto mais suave */
     font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6; /* Aumenta a legibilidade */
+    margin: 0;
+    padding: 0;
 }
 
+/* Container da página com animação */
 .relatorio-vendas .container {
     animation: fadeIn 0.5s ease-in;
+    max-width: 1200px; /* Limita o tamanho da página */
+    margin: 0 auto;
+    padding: 20px;
 }
 
+/* Contêiner da tabela com bordas arredondadas e sombra suave */
 .relatorio-vendas .table-container {
-    background: #f8f7f7;
+    background: #fff; /* Branco mais claro */
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Para evitar bordas quebradas */
+    margin-top: 20px;
 }
 
+/* Estilos da tabela */
 .relatorio-vendas table {
     width: 100%;
-    border-collapse: separate;
+    border-collapse: collapse; /* Corrige o espaçamento */
     border-spacing: 0;
+    background-color: #ffffff;
 }
 
+/* Cabeçalho da tabela */
 .relatorio-vendas th {
-    background-color: #333;
-    color: #fff;
+    background-color: #000000; /* Cor de fundo mais suave e moderna */
+    color: #ffffff;
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
+    padding: 1rem;
     letter-spacing: 0.05em;
+    text-align: center;
 }
 
+/* Células da tabela */
 .relatorio-vendas td, .relatorio-vendas th {
     padding: 1rem;
     text-align: left;
-    border-bottom: 1px solid #404040;
+    border-bottom: 1px solid #e0e0e0; /* Borda mais suave */
 }
 
+/* Última linha sem borda inferior */
 .relatorio-vendas tr:last-child td {
     border-bottom: none;
 }
 
+/* Estilo das linhas de dados */
 .relatorio-vendas tbody tr {
-    transition: background-color 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Efeito de hover mais suave */
 }
 
+/* Efeito de hover nas linhas da tabela */
 .relatorio-vendas tbody tr:hover {
-    background-color: #faf6f6;
+    background-color: #f1f1f1;
+    transform: scale(1.02); /* Leve zoom no hover para efeito dinâmico */
 }
 
+/* Mensagem quando não há dados */
 .relatorio-vendas .empty-message {
-    color: #f7f3f3;
+    color: #aaa;
     font-style: italic;
+    text-align: center;
+    padding: 20px;
 }
 
+/* Estilo dos resultados da busca */
 .relatorio-vendas .search-results {
-    color: rgb(255, 255, 255);
+    color: #28a745; /* Cor verde para destaque */
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
 }
 
+/* Estilo do nome do vendedor */
 .relatorio-vendas .seller-name {
-    color: white;
+    color: #333; /* Cor de texto mais neutra */
+    font-weight: 600;
+    font-size: 1.1rem;
 }
 
+/* Resultado (alerta de sucesso, erro, etc.) */
 .relatorio-vendas .result {
-    color: white;
-}
-.form-control-dark {
-    color: #ffffff; /* Cor das letras */
-    background-color: #343a40; /* Cor de fundo */
+    color: #e74c3c; /* Cor de erro/vermelho */
+    font-weight: 600;
+    font-size: 1.1rem;
 }
 
+/* Estilos para os campos de input */
+.form-control-dark {
+    color: #ffffff;
+    background-color: #343a40;
+    border: 1px solid #444; /* Borda para destacar */
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Estilo de foco nos campos de input */
+.form-control-dark:focus {
+    background-color: #495057;
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Animação de fade-in */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .relatorio-vendas .container {
+        padding: 15px;
+    }
+    
+    .relatorio-vendas table {
+        font-size: 0.9rem;
+    }
+    
+    .relatorio-vendas th, .relatorio-vendas td {
+        padding: 0.75rem;
+    }
+
+    .relatorio-vendas .table-container {
+        margin-top: 15px;
+    }
 }
